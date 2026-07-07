@@ -1,6 +1,6 @@
 # Caelum Mercer
 
-Personal site for Caelum Mercer — independent app studio. Features Nimlo and future products.
+Personal site for Caelum Mercer — independent app producer. Features Nimlo and future products.
 
 ## Deploy to Cloudflare Pages
 
