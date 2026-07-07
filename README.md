@@ -1,6 +1,6 @@
-# Caelum Mercer — Nimlo Landing Page
+# Caelum Mercer
 
-A simple, modern landing page for the Nimlo fitness app.
+Personal site for Caelum Mercer — independent app studio. Features Nimlo and future products.
 
 ## Deploy to Cloudflare Pages
 

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nimlo — Simple Workouts. No Pressure.</title>
-    <meta name="description" content="Nimlo makes working out simple. No complicated tracking. No overwhelming plans. Just show up and train.">
+    <title>Caelum Mercer</title>
+    <meta name="description" content="Caelum Mercer builds thoughtful apps for real life. Nimlo is the first — simple workouts, no pressure.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,20 +13,109 @@
 </head>
 <body>
     <div class="grid-background"></div>
-    
+
     <header>
-        <div class="logo">caelum mercer</div>
+        <div class="header-inner">
+            <a href="#" class="logo">caelum mercer</a>
+            <nav>
+                <a href="#about">about</a>
+                <a href="#products">products</a>
+                <a href="#contact">contact</a>
+            </nav>
+        </div>
     </header>
+
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>nimlo</h1>
-                <p class="tagline">Simple workouts. No pressure. Just show up.</p>
-                <p class="subtitle">One workout. Four exercises. Keep showing up.</p>
-                
+                <p class="eyebrow">independent app studio</p>
+                <h1>caelum mercer</h1>
+                <p class="tagline">Thoughtful software for everyday life.</p>
+                <p class="subtitle">Small apps with a clear point of view — built to remove friction, not add it.</p>
+                <a href="#products" class="hero-cta">see products</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="section-label">about</div>
+            <h2>Apps that respect your time</h2>
+            <p class="about-lead">Caelum Mercer is an independent producer building focused mobile experiences — tools that do one thing well and get out of your way.</p>
+            <p class="about-body">No bloated feature lists. No guilt-driven engagement. Just software designed for real schedules, real motivation, and real people.</p>
+        </section>
+
+        <section id="products" class="products">
+            <div class="section-label">products</div>
+            <h2>What we're building</h2>
+
+            <article class="product-card product-card--featured">
+                <div class="product-header">
+                    <div>
+                        <p class="product-category">fitness</p>
+                        <h3 class="product-name">nimlo</h3>
+                        <p class="product-tagline">Simple workouts. No pressure. Just show up.</p>
+                    </div>
+                    <span class="product-status">available on ios</span>
+                </div>
+
+                <p class="product-description">
+                    Nimlo makes working out simple. No complicated tracking. No overwhelming plans.
+                    One workout, four exercises, clear weight recommendations — then the app locks until your next session.
+                    Rest is part of training.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Personalized in seconds</h4>
+                        <p>Workouts tailored to you without hours of planning.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Clear recommendations</h4>
+                        <p>Know exactly what weight to use for every exercise.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h4>Simple routines</h4>
+                        <p>Four exercises per session. That's it. No overwhelm.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Built-in rest</h4>
+                        <p>The app locks until your next session. Consistency over perfection.</p>
+                    </div>
+                </div>
+
+                <div class="how-it-works">
+                    <h4>How it works</h4>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <p>Open Nimlo</p>
+                        </div>
+                        <div class="step-arrow">→</div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <p>Get your workout</p>
+                        </div>
+                        <div class="step-arrow">→</div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <p>Keep showing up</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">Busy schedules</span>
+                    <span class="tag">Low motivation days</span>
+                    <span class="tag">Beginners</span>
+                    <span class="tag">Tired of complicated apps</span>
+                </div>
+
                 <div class="download-buttons">
                     <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="app-store-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true">
                             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                         </svg>
                         <div class="btn-text">
@@ -35,7 +124,7 @@
                         </div>
                     </a>
                     <div class="android-coming-soon">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true">
                             <path d="M17.523 2.047a.5.5 0 0 0-.86.5l1.5 2.596a8.502 8.502 0 0 0-3.907-1.108L14 4a8.5 8.5 0 0 0-4 0l-.256.035a8.502 8.502 0 0 0-3.907 1.108l1.5-2.596a.5.5 0 0 0-.86-.5l-1.5 2.596A8.5 8.5 0 0 0 1.5 12.5v.5a.5.5 0 0 0 .5.5h20a.5.5 0 0 0 .5-.5v-.5a8.5 8.5 0 0 0-3.477-7.857l-1.5-2.596zM7 10a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM2 14.5a.5.5 0 0 1 .5-.5h19a.5.5 0 0 1 .5.5v4a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 18.5v-4z"/>
                         </svg>
                         <div class="btn-text">
@@ -44,76 +133,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </section>
-        <section class="features">
-            <h2>Why Nimlo Is Different</h2>
-            <p class="features-intro">Most fitness apps feel like work. Nimlo removes that friction.</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Personalized in Seconds</h3>
-                    <p>Get workouts tailored to you without spending hours planning.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Clear Recommendations</h3>
-                    <p>Know exactly what weight to use for every exercise.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>Simple Routines</h3>
-                    <p>Four exercises per session. That's it. No overwhelm.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Built-in Rest</h3>
-                    <p>The app locks until your next session. Rest is part of training.</p>
-                </div>
-            </div>
-        </section>
-        <section class="how-it-works">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <p>Open Nimlo</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <p>Get your workout</p>
-                </div>
-                <div class="step-arrow">→</div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <p>Keep showing up</p>
-                </div>
-            </div>
-        </section>
-        <section class="built-for">
-            <h2>Built for Real Life</h2>
-            <div class="tags">
-                <span class="tag">Busy schedules</span>
-                <span class="tag">Low motivation days</span>
-                <span class="tag">Beginners</span>
-                <span class="tag">Tired of complicated apps</span>
-                <span class="tag">Consistency over perfection</span>
-            </div>
-            <p class="built-for-text">Nimlo meets you where you are—and keeps you moving forward.</p>
-        </section>
-        <section class="cta">
-            <h2>Ready to simplify your training?</h2>
-            <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="cta-button" target="_blank" rel="noopener">
-                Download Nimlo
-            </a>
+
+        <section id="contact" class="contact">
+            <div class="section-label">contact</div>
+            <h2>Get in touch</h2>
+            <p class="contact-text">Support, feedback, or just saying hello.</p>
+            <a href="mailto:caelummercer@gmail.com" class="contact-link">caelummercer@gmail.com</a>
         </section>
     </main>
+
     <footer>
         <div class="footer-content">
             <p class="brand">caelum mercer</p>
-            <p class="copyright">© 2024 Caelum Mercer. All rights reserved.</p>
+            <p class="copyright">© 2026 Caelum Mercer. All rights reserved.</p>
         </div>
     </footer>
 </body>

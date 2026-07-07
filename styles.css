@@ -36,7 +36,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         linear-gradient(var(--dark-grid-blue) 1px, transparent 1px),
         linear-gradient(90deg, var(--dark-grid-blue) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -49,9 +49,17 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 2rem;
     z-index: 100;
     background: linear-gradient(to bottom, var(--deeper-navy) 0%, transparent 100%);
+}
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
 }
 .logo {
     font-size: 1rem;
@@ -59,7 +67,26 @@ header {
     letter-spacing: 0.1em;
     text-transform: lowercase;
     color: var(--off-white);
-    opacity: 0.8;
+    text-decoration: none;
+    opacity: 0.9;
+}
+nav {
+    display: flex;
+    gap: 1.75rem;
+}
+nav a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--off-white);
+    text-decoration: none;
+    opacity: 0.65;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+nav a:hover {
+    opacity: 1;
+    color: var(--warm-amber);
 }
 main {
     position: relative;
@@ -70,6 +97,14 @@ section {
     max-width: 1200px;
     margin: 0 auto;
 }
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    color: var(--soft-teal-glow);
+    margin-bottom: 1rem;
+}
 .hero {
     min-height: 100vh;
     display: flex;
@@ -79,13 +114,22 @@ section {
     padding-top: 8rem;
 }
 .hero-content {
-    max-width: 700px;
+    max-width: 720px;
+}
+.eyebrow {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    color: var(--soft-teal-glow);
+    margin-bottom: 1.25rem;
 }
 .hero h1 {
-    font-size: clamp(4rem, 15vw, 8rem);
+    font-size: clamp(3rem, 10vw, 5.5rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    text-transform: lowercase;
     background: linear-gradient(135deg, var(--off-white) 0%, var(--warm-amber) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -98,15 +142,214 @@ section {
     margin-bottom: 0.75rem;
 }
 .subtitle {
-    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     color: var(--off-white);
     opacity: 0.7;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.hero-cta {
+    display: inline-block;
+    border: 1px solid var(--dark-grid-blue);
+    background: var(--charcoal-blue);
+    color: var(--off-white);
+    padding: 0.875rem 2rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: lowercase;
+    letter-spacing: 0.04em;
+    transition: all 0.3s ease;
+}
+.hero-cta:hover {
+    border-color: var(--warm-amber);
+    color: var(--warm-amber);
+    transform: translateY(-2px);
+}
+.about {
+    max-width: 720px;
+}
+.about h2,
+.products > h2,
+.contact h2 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    text-transform: lowercase;
+}
+.about-lead {
+    font-size: 1.2rem;
+    color: var(--off-white);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+.about-body {
+    font-size: 1.05rem;
+    color: var(--off-white);
+    opacity: 0.65;
+}
+.products > h2 {
+    margin-bottom: 2.5rem;
+}
+.product-card {
+    background: var(--charcoal-blue);
+    border: 1px solid var(--dark-grid-blue);
+    border-radius: 20px;
+    padding: 2.5rem;
+}
+.product-card--featured {
+    border-color: rgba(229, 168, 90, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+.product-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    color: var(--soft-teal-glow);
+    margin-bottom: 0.5rem;
+}
+.product-name {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    text-transform: lowercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--warm-amber);
+}
+.product-tagline {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--off-white);
+    opacity: 0.85;
+}
+.product-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    color: var(--neon-lime-green);
+    background: rgba(180, 242, 109, 0.1);
+    border: 1px solid rgba(180, 242, 109, 0.25);
+    padding: 0.4rem 0.85rem;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+.product-description {
+    font-size: 1.05rem;
+    color: var(--off-white);
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+    max-width: 680px;
+}
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+.feature-card {
+    background: var(--deep-navy);
+    border: 1px solid var(--dark-grid-blue);
+    border-radius: 14px;
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+.feature-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--warm-amber);
+}
+.feature-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.feature-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--warm-amber);
+    text-transform: lowercase;
+}
+.feature-card p {
+    color: var(--off-white);
+    opacity: 0.75;
+    font-size: 0.9rem;
+}
+.how-it-works {
+    margin-bottom: 2rem;
+}
+.how-it-works h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: lowercase;
+    margin-bottom: 1.5rem;
+    color: var(--off-white);
+    opacity: 0.9;
+}
+.steps {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+.step-number {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--warm-amber) 0%, var(--primary-muscle-red) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--deeper-navy);
+}
+.step p {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.step-arrow {
+    font-size: 1.5rem;
+    color: var(--warm-amber);
+    opacity: 0.4;
+}
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+.tag {
+    background: var(--deep-navy);
+    border: 1px solid var(--dark-grid-blue);
+    color: var(--soft-teal-glow);
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 .download-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
     flex-wrap: wrap;
 }
 .app-store-btn,
@@ -129,10 +372,11 @@ section {
     box-shadow: 0 8px 30px rgba(229, 168, 90, 0.3);
 }
 .android-coming-soon {
-    background: var(--charcoal-blue);
+    background: var(--deep-navy);
     color: var(--off-white);
     opacity: 0.6;
     cursor: default;
+    border: 1px solid var(--dark-grid-blue);
 }
 .btn-text {
     display: flex;
@@ -150,161 +394,25 @@ section {
     font-size: 1.1rem;
     font-weight: 600;
 }
-.features {
+.contact {
     text-align: center;
+    padding-bottom: 8rem;
 }
-.features h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--off-white);
-}
-.features-intro {
-    font-size: 1.25rem;
+.contact-text {
+    font-size: 1.1rem;
     color: var(--off-white);
     opacity: 0.7;
-    margin-bottom: 4rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-.feature-card {
-    background: var(--charcoal-blue);
-    border: 1px solid var(--dark-grid-blue);
-    border-radius: 16px;
-    padding: 2rem;
-    text-align: left;
-    transition: all 0.3s ease;
-}
-.feature-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--warm-amber);
-    box-shadow: 0 8px 30px rgba(229, 168, 90, 0.1);
-}
-.feature-icon {
-    font-size: 2rem;
     margin-bottom: 1rem;
 }
-.feature-card h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--warm-amber);
-}
-.feature-card p {
-    color: var(--off-white);
-    opacity: 0.8;
-    font-size: 0.95rem;
-}
-.how-it-works {
-    text-align: center;
-}
-.how-it-works h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 3rem;
-}
-.steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-}
-.step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-}
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--warm-amber) 0%, var(--primary-muscle-red) 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--deeper-navy);
-}
-.step p {
-    font-size: 1.1rem;
+.contact-link {
+    font-size: 1.15rem;
     font-weight: 500;
-}
-.step-arrow {
-    font-size: 2rem;
     color: var(--warm-amber);
-    opacity: 0.5;
-}
-@media (max-width: 600px) {
-    .step-arrow {
-        display: none;
-    }
-    
-    .steps {
-        flex-direction: column;
-        gap: 2rem;
-    }
-}
-.built-for {
-    text-align: center;
-}
-.built-for h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-}
-.tag {
-    background: var(--deep-navy);
-    border: 1px solid var(--dark-grid-blue);
-    color: var(--soft-teal-glow);
-    padding: 0.5rem 1.25rem;
-    border-radius: 100px;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-.built-for-text {
-    font-size: 1.25rem;
-    color: var(--off-white);
-    opacity: 0.8;
-}
-.cta {
-    text-align: center;
-    padding: 8rem 2rem;
-}
-.cta h2 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-.cta-button {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--warm-amber) 0%, var(--primary-muscle-red) 100%);
-    color: var(--deeper-navy);
-    padding: 1rem 2.5rem;
-    border-radius: 100px;
-    font-size: 1.1rem;
-    font-weight: 600;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: opacity 0.2s ease;
 }
-.cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(229, 168, 90, 0.4);
+.contact-link:hover {
+    opacity: 0.8;
 }
 footer {
     position: relative;
@@ -330,20 +438,45 @@ footer {
     color: var(--off-white);
     opacity: 0.5;
 }
+@media (max-width: 600px) {
+    .step-arrow {
+        display: none;
+    }
+    .steps {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+    .step {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
 @media (max-width: 768px) {
     section {
         padding: 4rem 1.5rem;
     }
-    
-    .hero {
-        padding-top: 6rem;
+    header {
+        padding: 1rem 1.25rem;
     }
-    
+    nav {
+        gap: 1.25rem;
+    }
+    nav a {
+        font-size: 0.85rem;
+    }
+    .hero {
+        padding-top: 7rem;
+    }
+    .product-card {
+        padding: 1.75rem;
+    }
+    .product-header {
+        flex-direction: column;
+    }
     .download-buttons {
         flex-direction: column;
-        align-items: center;
     }
-    
     .app-store-btn,
     .android-coming-soon {
         width: 100%;
