@@ -4,163 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caelum Mercer</title>
-    <meta name="description" content="Caelum Mercer builds thoughtful apps for real life. Nimlo is the first — simple workouts, no pressure.">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Caelum Mercer — independent app producer. Thoughtful software for everyday life. Nimlo is the first.">
+    <meta property="og:title" content="Caelum Mercer">
+    <meta property="og:description" content="Independent app producer. Thoughtful software for everyday life.">
+    <meta property="og:image" content="images/nimlo-home.jpg">
+    <meta name="theme-color" content="#050810">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="grid-background"></div>
+    <canvas id="aurora" aria-hidden="true"></canvas>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+    <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar"></div></div>
 
-    <header>
+    <header class="site-header">
         <div class="header-inner">
-            <a href="#" class="logo">Caelum Mercer</a>
-            <nav>
-                <a href="#about">about</a>
-                <a href="#products">products</a>
-                <a href="#contact">contact</a>
+            <a href="#top" class="logo magnetic" data-magnetic>
+                <span class="logo-mark">C</span>
+                <span class="logo-text">Caelum Mercer</span>
+            </a>
+            <nav class="site-nav">
+                <a href="#about" class="nav-link magnetic" data-magnetic><span>about</span></a>
+                <a href="#products" class="nav-link magnetic" data-magnetic><span>products</span></a>
+                <a href="#contact" class="nav-link magnetic" data-magnetic><span>contact</span></a>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section class="hero">
+    <main id="top">
+        <section class="hero" data-section="hero">
+            <div class="hero-orbit" aria-hidden="true">
+                <div class="orbit-ring orbit-ring--1"></div>
+                <div class="orbit-ring orbit-ring--2"></div>
+                <div class="orbit-ring orbit-ring--3"></div>
+            </div>
             <div class="hero-content">
-                <p class="eyebrow">independent app producer</p>
-                <h1>Caelum Mercer</h1>
-                <p class="tagline">Thoughtful software for everyday life.</p>
-                <p class="subtitle">Small apps with a clear point of view — built to remove friction, not add it.</p>
-                <a href="#products" class="hero-cta">see products</a>
+                <p class="eyebrow reveal" style="--d:0">independent app producer</p>
+                <h1 class="hero-title" aria-label="Caelum Mercer">
+                    <span class="title-line reveal" style="--d:1"><span class="title-word">Caelum</span></span>
+                    <span class="title-line reveal" style="--d:2"><span class="title-word title-word--accent">Mercer</span></span>
+                </h1>
+                <p class="tagline reveal" style="--d:3">
+                    <span class="serif">Thoughtful software</span> for everyday life.
+                </p>
+                <p class="subtitle reveal" style="--d:4">Small apps with a clear point of view — built to remove friction, not add it.</p>
+                <div class="hero-actions reveal" style="--d:5">
+                    <a href="#products" class="btn btn--primary magnetic" data-magnetic>
+                        <span>see products</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </a>
+                    <a href="#about" class="btn btn--ghost magnetic" data-magnetic><span>the approach</span></a>
+                </div>
+            </div>
+            <div class="hero-scroll reveal" style="--d:6" aria-hidden="true">
+                <span>scroll</span>
+                <div class="scroll-line"></div>
             </div>
         </section>
 
-        <section id="about" class="about">
-            <div class="section-label">about</div>
-            <h2>Apps that respect your time</h2>
-            <p class="about-lead">Caelum Mercer is an independent producer building focused mobile experiences — tools that do one thing well and get out of your way.</p>
-            <p class="about-body">No bloated feature lists. No guilt-driven engagement. Just software designed for real schedules, real motivation, and real people.</p>
+        <section id="about" class="about" data-section="about">
+            <div class="section-rail">
+                <span class="section-index">01</span>
+                <span class="section-label">about</span>
+            </div>
+            <div class="about-grid">
+                <h2 class="about-title reveal-up">
+                    Apps that<br><em class="serif">respect your time</em>
+                </h2>
+                <div class="about-copy">
+                    <p class="about-lead reveal-up" style="--d:1">Caelum Mercer is an independent producer building focused mobile experiences — tools that do one thing well and get out of your way.</p>
+                    <p class="about-body reveal-up" style="--d:2">No bloated feature lists. No guilt-driven engagement. Just software designed for real schedules, real motivation, and real people.</p>
+                    <ul class="principles reveal-up" style="--d:3">
+                        <li><span>clarity</span> over complexity</li>
+                        <li><span>rest</span> as part of the product</li>
+                        <li><span>consistency</span> over perfection</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <section id="products" class="products">
-            <div class="section-label">products</div>
-            <h2>What we're building</h2>
+        <section id="products" class="products" data-section="products">
+            <div class="section-rail">
+                <span class="section-index">02</span>
+                <span class="section-label">products</span>
+            </div>
+            <h2 class="products-title reveal-up">What we're building</h2>
 
-            <article class="product-card product-card--featured">
-                <div class="product-header">
+            <article class="product reveal-up">
+                <div class="product-meta">
                     <div>
-                        <p class="product-category">fitness</p>
+                        <p class="product-category">fitness · ios</p>
                         <h3 class="product-name">nimlo</h3>
-                        <p class="product-tagline">Simple workouts. No pressure. Just show up.</p>
+                        <p class="product-tagline serif">Simple workouts. No pressure. Just show up.</p>
                     </div>
-                    <span class="product-status">available on ios</span>
+                    <span class="product-status">
+                        <span class="status-dot"></span>
+                        available on ios
+                    </span>
                 </div>
 
                 <p class="product-description">
-                    Nimlo makes working out simple. No complicated tracking. No overwhelming plans.
-                    One workout, four exercises, clear weight recommendations — then the app locks until your next session.
-                    Rest is part of training.
+                    One workout. Four exercises. Clear weight recommendations — then the app locks until your next session. Rest is part of training.
                 </p>
 
-                <div class="screenshot-gallery" aria-label="Nimlo app screenshots">
-                    <figure class="screenshot">
-                        <img src="images/nimlo-home.jpg" alt="Nimlo home screen with continue workout circle and streak stats" width="600" height="1200" loading="lazy">
+                <div class="showcase" aria-label="Nimlo app screenshots">
+                    <figure class="phone tilt" data-tilt>
+                        <div class="phone-glow"></div>
+                        <img src="images/nimlo-home.jpg" alt="Nimlo home screen with continue workout circle" width="600" height="1200" loading="lazy">
                     </figure>
-                    <figure class="screenshot">
-                        <img src="images/nimlo-exercise.jpg" alt="Nimlo exercise screen showing dumbbell press with weight recommendations" width="600" height="1200" loading="lazy">
+                    <figure class="phone tilt phone--mid" data-tilt>
+                        <div class="phone-glow"></div>
+                        <img src="images/nimlo-exercise.jpg" alt="Nimlo exercise screen with weight recommendations" width="600" height="1200" loading="lazy">
                     </figure>
-                    <figure class="screenshot">
-                        <img src="images/nimlo-focus.jpg" alt="Nimlo profile builder asking what to focus on most" width="600" height="1200" loading="lazy">
+                    <figure class="phone tilt" data-tilt>
+                        <div class="phone-glow"></div>
+                        <img src="images/nimlo-focus.jpg" alt="Nimlo profile builder focus selection" width="600" height="1200" loading="lazy">
                     </figure>
                 </div>
 
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
+                <div class="feature-strip">
+                    <div class="feature reveal-up" style="--d:0">
+                        <span class="feature-num">01</span>
                         <h4>Personalized in seconds</h4>
                         <p>Workouts tailored to you without hours of planning.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
+                    <div class="feature reveal-up" style="--d:1">
+                        <span class="feature-num">02</span>
                         <h4>Clear recommendations</h4>
                         <p>Know exactly what weight to use for every exercise.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
+                    <div class="feature reveal-up" style="--d:2">
+                        <span class="feature-num">03</span>
                         <h4>Simple routines</h4>
-                        <p>Four exercises per session. That's it. No overwhelm.</p>
+                        <p>Four exercises per session. That's it.</p>
                     </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
+                    <div class="feature reveal-up" style="--d:3">
+                        <span class="feature-num">04</span>
                         <h4>Built-in rest</h4>
-                        <p>The app locks until your next session. Consistency over perfection.</p>
+                        <p>The app locks until your next session.</p>
                     </div>
                 </div>
 
-                <div class="how-it-works">
-                    <h4>How it works</h4>
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <p>Open Nimlo</p>
-                        </div>
-                        <div class="step-arrow">→</div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <p>Get your workout</p>
-                        </div>
-                        <div class="step-arrow">→</div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <p>Keep showing up</p>
-                        </div>
-                    </div>
+                <div class="flow reveal-up">
+                    <div class="flow-step"><span>01</span><p>Open Nimlo</p></div>
+                    <div class="flow-connector" aria-hidden="true"></div>
+                    <div class="flow-step"><span>02</span><p>Get your workout</p></div>
+                    <div class="flow-connector" aria-hidden="true"></div>
+                    <div class="flow-step"><span>03</span><p>Keep showing up</p></div>
                 </div>
 
-                <div class="tags">
-                    <span class="tag">Busy schedules</span>
-                    <span class="tag">Low motivation days</span>
-                    <span class="tag">Beginners</span>
-                    <span class="tag">Tired of complicated apps</span>
-                </div>
-
-                <div class="download-buttons">
-                    <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="app-store-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true">
-                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                        </svg>
-                        <div class="btn-text">
-                            <span class="btn-small">Download on the</span>
-                            <span class="btn-large">App Store</span>
-                        </div>
+                <div class="download-row reveal-up">
+                    <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="store-btn magnetic" data-magnetic target="_blank" rel="noopener">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        <span><small>Download on the</small>App Store</span>
                     </a>
-                    <div class="android-coming-soon">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24" aria-hidden="true">
-                            <path d="M17.523 2.047a.5.5 0 0 0-.86.5l1.5 2.596a8.502 8.502 0 0 0-3.907-1.108L14 4a8.5 8.5 0 0 0-4 0l-.256.035a8.502 8.502 0 0 0-3.907 1.108l1.5-2.596a.5.5 0 0 0-.86-.5l-1.5 2.596A8.5 8.5 0 0 0 1.5 12.5v.5a.5.5 0 0 0 .5.5h20a.5.5 0 0 0 .5-.5v-.5a8.5 8.5 0 0 0-3.477-7.857l-1.5-2.596zM7 10a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM2 14.5a.5.5 0 0 1 .5-.5h19a.5.5 0 0 1 .5.5v4a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 18.5v-4z"/>
-                        </svg>
-                        <div class="btn-text">
-                            <span class="btn-small">Android</span>
-                            <span class="btn-large">Coming Soon</span>
-                        </div>
+                    <div class="store-btn store-btn--soon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M17.523 2.047a.5.5 0 0 0-.86.5l1.5 2.596a8.502 8.502 0 0 0-3.907-1.108L14 4a8.5 8.5 0 0 0-4 0l-.256.035a8.502 8.502 0 0 0-3.907 1.108l1.5-2.596a.5.5 0 0 0-.86-.5l-1.5 2.596A8.5 8.5 0 0 0 1.5 12.5v.5a.5.5 0 0 0 .5.5h20a.5.5 0 0 0 .5-.5v-.5a8.5 8.5 0 0 0-3.477-7.857l-1.5-2.596zM7 10a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM2 14.5a.5.5 0 0 1 .5-.5h19a.5.5 0 0 1 .5.5v4a3.5 3.5 0 0 1-3.5 3.5h-13A3.5 3.5 0 0 1 2 18.5v-4z"/></svg>
+                        <span><small>Android</small>Coming Soon</span>
                     </div>
                 </div>
             </article>
         </section>
 
-        <section id="contact" class="contact">
-            <div class="section-label">contact</div>
-            <h2>Get in touch</h2>
-            <p class="contact-text">Support, feedback, or just saying hello.</p>
-            <a href="mailto:caelummercer@gmail.com" class="contact-link">caelummercer@gmail.com</a>
+        <section id="contact" class="contact" data-section="contact">
+            <div class="section-rail">
+                <span class="section-index">03</span>
+                <span class="section-label">contact</span>
+            </div>
+            <div class="contact-panel reveal-up">
+                <h2 class="contact-title">Get in <em class="serif">touch</em></h2>
+                <p class="contact-text">Support, feedback, or just saying hello.</p>
+                <a href="mailto:caelummercer@gmail.com" class="contact-mail magnetic" data-magnetic>caelummercer@gmail.com</a>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
+    <footer class="site-footer">
+        <div class="footer-inner">
             <p class="brand">Caelum Mercer</p>
             <p class="copyright">© 2026 Caelum Mercer. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="main.js" type="module"></script>
 </body>
 </html>

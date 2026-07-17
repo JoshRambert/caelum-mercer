@@ -1,24 +1,21 @@
 # Caelum Mercer
 
-Personal site for Caelum Mercer — independent app producer. Features Nimlo and future products.
-
-## Deploy to Cloudflare Pages
-
-1. Push this repo to GitHub
-2. Go to [Cloudflare Pages](https://pages.cloudflare.com/)
-3. Connect your GitHub account
-4. Select this repository
-5. Deploy (no build settings needed — it's static HTML/CSS)
-
-Your site will be live at `caelummercer.pages.dev`
+Immersive personal site for independent app producer Caelum Mercer.
+Features a WebGL2 aurora shader, scroll-driven motion, and Nimlo product showcase.
 
 ## Local Development
-
-Just open `index.html` in your browser, or use a simple server:
 
 ```bash
 npx serve .
 ```
+
+## Deploy
+
+```bash
+npx wrangler pages deploy . --project-name caelummercer
+```
+
+Live: https://caelummercer.pages.dev
 
 ## Links
 
