@@ -99,13 +99,12 @@ document.querySelectorAll("[data-tilt]").forEach((card) => {
     const py = (e.clientY - r.top) / r.height;
     const rxT = (0.5 - py) * 14;
     const ryT = (px - 0.5) * 16;
-    const mid = card.classList.contains("phone--mid") ? "translateY(-1.25rem) " : "";
     card.classList.add("is-tilting");
-    card.style.transform = `${mid}perspective(900px) rotateX(${rxT}deg) rotateY(${ryT}deg) scale3d(1.03,1.03,1.03)`;
+    card.style.transform = `perspective(900px) rotateX(${rxT}deg) rotateY(${ryT}deg) scale3d(1.03,1.03,1.03)`;
   });
   card.addEventListener("pointerleave", () => {
     card.classList.remove("is-tilting");
-    card.style.transform = card.classList.contains("phone--mid") ? "translateY(-1.25rem)" : "";
+    card.style.transform = "";
   });
 });
 
