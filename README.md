@@ -20,3 +20,4 @@ Live: https://caelummercer.pages.dev
 ## Links
 
 - [Nimlo on the App Store](https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073)
+- [Nimlo on Google Play](https://play.google.com/store/apps/details?id=com.nimlo.android)
