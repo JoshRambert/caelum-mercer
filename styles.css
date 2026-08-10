@@ -1,19 +1,19 @@
 :root {
-    --bg: #E8E4DC;
-    --bg-deep: #DDD8CE;
-    --ink: #1C1B19;
-    --ink-soft: #4A463F;
-    --muted: #7A746A;
-    --line: #C9C2B6;
-    --card: #F1EEE7;
-    --accent: #9A6B3F;
-    --accent-deep: #7A5230;
-    --live: #3F6B4A;
-    --neu-bg: #E6E9EF;
-    --neu-dark: #A3B1C6;
-    --neu-light: #FFFFFF;
-    --neu-ink: #3D4654;
-    --neu-muted: #7B8494;
+    --bg: #141311;
+    --bg-deep: #0F0E0C;
+    --ink: #F0EDE6;
+    --ink-soft: #C8C2B6;
+    --muted: #8A8478;
+    --line: #2E2C28;
+    --card: #1C1A17;
+    --accent: #C4925A;
+    --accent-deep: #D4A574;
+    --live: #6B9B74;
+    --neu-bg: #22262E;
+    --neu-dark: #14171C;
+    --neu-light: #2F3540;
+    --neu-ink: #E8EAED;
+    --neu-muted: #9AA3B2;
     --font-display: "Outfit", system-ui, sans-serif;
     --font-serif: "Fraunces", Georgia, serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,13 +38,14 @@ html {
 body {
     font-family: var(--font-display);
     background:
-        radial-gradient(ellipse 90% 60% at 10% -10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 55%),
-        radial-gradient(ellipse 70% 50% at 100% 20%, color-mix(in oklab, var(--bg-deep) 80%, transparent), transparent 50%),
+        radial-gradient(ellipse 90% 60% at 10% -10%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 15%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 50%),
         var(--bg);
     color: var(--ink);
     line-height: 1.55;
     min-height: 100vh;
     overflow-x: hidden;
+    color-scheme: dark;
 }
 
 a {
@@ -320,7 +321,7 @@ section {
     background: var(--card);
     border: 1px solid color-mix(in oklab, var(--line) 80%, transparent);
     margin-bottom: 1.5rem;
-    box-shadow: 0 18px 50px color-mix(in oklab, var(--ink) 6%, transparent);
+    box-shadow: 0 18px 50px color-mix(in oklab, black 35%, transparent);
 }
 
 .product-meta {
@@ -444,7 +445,7 @@ section {
 .feature {
     padding: 1.1rem;
     border-radius: 1rem;
-    background: color-mix(in oklab, var(--bg) 70%, white);
+    background: color-mix(in oklab, var(--bg-deep) 70%, var(--card));
     border: 1px solid color-mix(in oklab, var(--line) 70%, transparent);
 }
 
@@ -510,8 +511,8 @@ section {
 
 /* ——— Troutt neumorphic preview ——— */
 .product--troutt {
-    background: linear-gradient(160deg, #EEF1F6 0%, var(--neu-bg) 100%);
-    border-color: color-mix(in oklab, var(--neu-dark) 25%, transparent);
+    background: linear-gradient(160deg, #1A1E26 0%, var(--neu-bg) 100%);
+    border-color: color-mix(in oklab, var(--neu-light) 35%, transparent);
 }
 
 .troutt-preview {
