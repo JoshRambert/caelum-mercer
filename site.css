@@ -38,15 +38,96 @@ html {
 
 body {
     font-family: var(--font-display);
-    background:
-        radial-gradient(ellipse 80% 50% at 15% -5%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 55%),
-        radial-gradient(ellipse 60% 40% at 95% 10%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 50%),
-        var(--bg);
+    background: var(--bg);
     color: var(--ink);
     line-height: 1.55;
     min-height: 100vh;
     overflow-x: hidden;
     color-scheme: dark;
+}
+
+/* Soft dark atmosphere — warm glows, grain, vignette */
+.site-atmosphere {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.atmosphere-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+}
+
+.atmosphere-glow--a {
+    width: min(72vw, 720px);
+    height: min(72vw, 720px);
+    top: -18%;
+    left: -12%;
+    background: radial-gradient(circle, color-mix(in oklab, var(--accent) 28%, transparent) 0%, transparent 68%);
+    opacity: 0.55;
+    animation: atmosphere-drift-a 22s var(--ease-out) infinite alternate;
+}
+
+.atmosphere-glow--b {
+    width: min(60vw, 560px);
+    height: min(60vw, 560px);
+    top: 8%;
+    right: -14%;
+    background: radial-gradient(circle, color-mix(in oklab, #8B6A4A 22%, transparent) 0%, transparent 70%);
+    opacity: 0.4;
+    animation: atmosphere-drift-b 28s var(--ease-out) infinite alternate;
+}
+
+.atmosphere-glow--c {
+    width: min(80vw, 800px);
+    height: min(55vw, 520px);
+    bottom: -20%;
+    left: 20%;
+    background: radial-gradient(circle, color-mix(in oklab, #3A322C 55%, transparent) 0%, transparent 72%);
+    opacity: 0.7;
+    animation: atmosphere-drift-c 32s var(--ease-out) infinite alternate;
+}
+
+.atmosphere-wash {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(165deg, transparent 35%, color-mix(in oklab, var(--accent) 4%, transparent) 70%, transparent 100%),
+        radial-gradient(ellipse 90% 55% at 50% 110%, color-mix(in oklab, #1A1612 80%, transparent), transparent 60%);
+}
+
+.atmosphere-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.055;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+}
+
+.atmosphere-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 75% 70% at 50% 40%, transparent 35%, color-mix(in oklab, var(--bg-deep) 75%, transparent) 100%);
+}
+
+@keyframes atmosphere-drift-a {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(6%, 4%) scale(1.08); }
+}
+
+@keyframes atmosphere-drift-b {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(-5%, 6%) scale(1.1); }
+}
+
+@keyframes atmosphere-drift-c {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(4%, -5%) scale(1.06); }
 }
 
 a {
@@ -147,7 +228,8 @@ img {
     color: var(--ink);
 }
 
-main {
+main,
+.site-footer {
     position: relative;
     z-index: 2;
 }
@@ -783,5 +865,11 @@ section {
         opacity: 1;
         transform: none;
         transition: none;
+    }
+
+    .atmosphere-glow--a,
+    .atmosphere-glow--b,
+    .atmosphere-glow--c {
+        animation: none;
     }
 }
