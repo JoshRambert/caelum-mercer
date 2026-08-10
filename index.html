@@ -4,70 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caelum Mercer</title>
-    <meta name="description" content="Caelum Mercer — independent app producer. Thoughtful software for everyday life. Nimlo is the first.">
+    <meta name="description" content="Caelum Mercer — independent app producer. Thoughtful software for everyday life.">
     <meta property="og:title" content="Caelum Mercer">
     <meta property="og:description" content="Independent app producer. Thoughtful software for everyday life.">
     <meta property="og:image" content="images/nimlo-home.jpg">
-    <meta name="theme-color" content="#050810">
+    <meta name="theme-color" content="#E8E4DC">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id="aurora" aria-hidden="true"></canvas>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="vignette" aria-hidden="true"></div>
-    <div class="cursor" aria-hidden="true"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
     <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar"></div></div>
 
     <header class="site-header">
         <div class="header-inner">
-            <a href="#top" class="logo magnetic" data-magnetic>
+            <a href="#top" class="logo">
                 <span class="logo-mark">C</span>
                 <span class="logo-text">Caelum Mercer</span>
             </a>
             <nav class="site-nav">
-                <a href="#about" class="nav-link magnetic" data-magnetic><span>about</span></a>
-                <a href="#products" class="nav-link magnetic" data-magnetic><span>products</span></a>
-                <a href="#contact" class="nav-link magnetic" data-magnetic><span>contact</span></a>
+                <a href="#about" class="nav-link">about</a>
+                <a href="#products" class="nav-link">products</a>
+                <a href="#contact" class="nav-link">contact</a>
             </nav>
         </div>
     </header>
 
     <main id="top">
-        <section class="hero" data-section="hero">
-            <div class="hero-orbit" aria-hidden="true">
-                <div class="orbit-ring orbit-ring--1"></div>
-                <div class="orbit-ring orbit-ring--2"></div>
-                <div class="orbit-ring orbit-ring--3"></div>
-            </div>
+        <section class="hero">
             <div class="hero-content">
                 <p class="eyebrow reveal" style="--d:0">independent app producer</p>
-                <h1 class="hero-title" aria-label="Caelum Mercer">
-                    <span class="title-line reveal" style="--d:1"><span class="title-word">Caelum</span></span>
-                    <span class="title-line reveal" style="--d:2"><span class="title-word title-word--accent">Mercer</span></span>
-                </h1>
-                <p class="tagline reveal" style="--d:3">
+                <h1 class="hero-title reveal" style="--d:1">Caelum Mercer</h1>
+                <p class="tagline reveal" style="--d:2">
                     <span class="serif">Thoughtful software</span> for everyday life.
                 </p>
-                <p class="subtitle reveal" style="--d:4">Small apps with a clear point of view — built to remove friction, not add it.</p>
-                <div class="hero-actions reveal" style="--d:5">
-                    <a href="#products" class="btn btn--primary magnetic" data-magnetic>
-                        <span>see products</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5"/></svg>
-                    </a>
-                    <a href="#about" class="btn btn--ghost magnetic" data-magnetic><span>the approach</span></a>
+                <p class="subtitle reveal" style="--d:3">Small apps with a clear point of view — built to remove friction, not add it.</p>
+                <div class="hero-actions reveal" style="--d:4">
+                    <a href="#products" class="btn btn--primary">see products</a>
+                    <a href="#about" class="btn btn--ghost">the approach</a>
                 </div>
-            </div>
-            <div class="hero-scroll reveal" style="--d:6" aria-hidden="true">
-                <span>scroll</span>
-                <div class="scroll-line"></div>
             </div>
         </section>
 
-        <section id="about" class="about" data-section="about">
+        <section id="about" class="about">
             <div class="section-rail">
                 <span class="section-index">01</span>
                 <span class="section-label">about</span>
@@ -87,21 +68,21 @@
             </div>
         </section>
 
-        <section id="products" class="products" data-section="products">
+        <section id="products" class="products">
             <div class="section-rail">
                 <span class="section-index">02</span>
                 <span class="section-label">products</span>
             </div>
             <h2 class="products-title reveal-up">What we're building</h2>
 
-            <article class="product reveal-up">
+            <article class="product product--nimlo reveal-up">
                 <div class="product-meta">
                     <div>
                         <p class="product-category">fitness · ios · android</p>
                         <h3 class="product-name">nimlo</h3>
                         <p class="product-tagline serif">Simple workouts. No pressure. Just show up.</p>
                     </div>
-                    <span class="product-status">
+                    <span class="product-status product-status--live">
                         <span class="status-dot"></span>
                         available on ios &amp; android
                     </span>
@@ -112,65 +93,106 @@
                 </p>
 
                 <div class="showcase" aria-label="Nimlo app screenshots">
-                    <figure class="phone tilt" data-tilt>
-                        <div class="phone-glow"></div>
+                    <figure class="phone">
                         <img src="images/nimlo-home.jpg" alt="Nimlo home screen with continue workout circle" width="600" height="1200" loading="lazy">
                     </figure>
-                    <figure class="phone tilt" data-tilt>
-                        <div class="phone-glow"></div>
+                    <figure class="phone">
                         <img src="images/nimlo-exercise.jpg" alt="Nimlo exercise screen with weight recommendations" width="600" height="1200" loading="lazy">
                     </figure>
-                    <figure class="phone tilt" data-tilt>
-                        <div class="phone-glow"></div>
+                    <figure class="phone">
                         <img src="images/nimlo-focus.jpg" alt="Nimlo profile builder focus selection" width="600" height="1200" loading="lazy">
                     </figure>
                 </div>
 
                 <div class="feature-strip">
-                    <div class="feature reveal-up" style="--d:0">
+                    <div class="feature">
                         <span class="feature-num">01</span>
                         <h4>Personalized in seconds</h4>
                         <p>Workouts tailored to you without hours of planning.</p>
                     </div>
-                    <div class="feature reveal-up" style="--d:1">
+                    <div class="feature">
                         <span class="feature-num">02</span>
                         <h4>Clear recommendations</h4>
                         <p>Know exactly what weight to use for every exercise.</p>
                     </div>
-                    <div class="feature reveal-up" style="--d:2">
+                    <div class="feature">
                         <span class="feature-num">03</span>
                         <h4>Simple routines</h4>
                         <p>Four exercises per session. That's it.</p>
                     </div>
-                    <div class="feature reveal-up" style="--d:3">
+                    <div class="feature">
                         <span class="feature-num">04</span>
                         <h4>Built-in rest</h4>
                         <p>The app locks until your next session.</p>
                     </div>
                 </div>
 
-                <div class="flow reveal-up">
-                    <div class="flow-step"><span>01</span><p>Open Nimlo</p></div>
-                    <div class="flow-connector" aria-hidden="true"></div>
-                    <div class="flow-step"><span>02</span><p>Get your workout</p></div>
-                    <div class="flow-connector" aria-hidden="true"></div>
-                    <div class="flow-step"><span>03</span><p>Keep showing up</p></div>
-                </div>
-
-                <div class="download-row reveal-up">
-                    <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="store-btn magnetic" data-magnetic target="_blank" rel="noopener">
+                <div class="download-row">
+                    <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="store-btn" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                         <span><small>Download on the</small>App Store</span>
                     </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.nimlo.android" class="store-btn magnetic" data-magnetic target="_blank" rel="noopener">
+                    <a href="https://play.google.com/store/apps/details?id=com.nimlo.android" class="store-btn" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M3.18 2.64A1.5 1.5 0 0 0 1.5 4.03v15.94c0 .57.32 1.09.84 1.35L12 16.5l8.66 4.99c.52-.26.84-.78.84-1.35V4.03a1.5 1.5 0 0 0-.84-1.35L12 7.5 3.18 2.64Zm8.82 9.11 6.75 3.89V7.41L12 11.75ZM3.5 5.2l7.25 4.18v4.29L3.5 17.85V5.2Z"/></svg>
                         <span><small>Get it on</small>Google Play</span>
                     </a>
                 </div>
             </article>
+
+            <article class="product product--troutt reveal-up">
+                <div class="product-meta">
+                    <div>
+                        <p class="product-category">productivity · todo</p>
+                        <h3 class="product-name product-name--troutt">troutt <span class="version-pill">v2</span></h3>
+                        <p class="product-tagline serif">A calm todo app with a soft, neumorphic touch.</p>
+                    </div>
+                    <span class="product-status product-status--soon">coming soon</span>
+                </div>
+
+                <p class="product-description">
+                    Troutt V2 is a focused todo experience — soft surfaces, quiet hierarchy, and just enough structure to keep life moving without the noise.
+                </p>
+
+                <div class="troutt-preview" aria-hidden="true">
+                    <div class="neu-phone">
+                        <div class="neu-phone-notch"></div>
+                        <div class="neu-screen">
+                            <div class="neu-header">
+                                <span class="neu-greeting">today</span>
+                                <span class="neu-count">3 left</span>
+                            </div>
+                            <div class="neu-list">
+                                <div class="neu-item neu-item--done">
+                                    <span class="neu-check"></span>
+                                    <span>morning stretch</span>
+                                </div>
+                                <div class="neu-item">
+                                    <span class="neu-check"></span>
+                                    <span>ship troutt polish</span>
+                                </div>
+                                <div class="neu-item">
+                                    <span class="neu-check"></span>
+                                    <span>call with caelum</span>
+                                </div>
+                            </div>
+                            <button class="neu-fab" type="button" tabindex="-1">+</button>
+                        </div>
+                    </div>
+                    <div class="troutt-copy">
+                        <h4>Soft by design</h4>
+                        <p>Neumorphic UI that feels tactile and quiet — no neon, no clutter, just clear next steps.</p>
+                        <ul class="troutt-points">
+                            <li>Fast capture for todos</li>
+                            <li>Gentle progress, not pressure</li>
+                            <li>A calmer daily rhythm</li>
+                        </ul>
+                        <p class="troutt-note">In progress. Stay tuned.</p>
+                    </div>
+                </div>
+            </article>
         </section>
 
-        <section id="contact" class="contact" data-section="contact">
+        <section id="contact" class="contact">
             <div class="section-rail">
                 <span class="section-index">03</span>
                 <span class="section-label">contact</span>
@@ -178,7 +200,7 @@
             <div class="contact-panel reveal-up">
                 <h2 class="contact-title">Get in <em class="serif">touch</em></h2>
                 <p class="contact-text">Support, feedback, or just saying hello.</p>
-                <a href="mailto:caelummercer@gmail.com" class="contact-mail magnetic" data-magnetic>caelummercer@gmail.com</a>
+                <a href="mailto:caelummercer@gmail.com" class="contact-mail">caelummercer@gmail.com</a>
             </div>
         </section>
     </main>

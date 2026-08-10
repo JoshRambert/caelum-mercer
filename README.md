@@ -1,7 +1,7 @@
 # Caelum Mercer
 
-Immersive personal site for independent app producer Caelum Mercer.
-Features a WebGL2 aurora shader, scroll-driven motion, and Nimlo product showcase.
+Personal site for independent app producer Caelum Mercer.
+Showcases Nimlo (live) and Troutt V2 (coming soon) with a calm, product-neutral design.
 
 ## Local Development
 
