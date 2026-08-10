@@ -1,19 +1,19 @@
 :root {
-    --bg: #141311;
-    --bg-deep: #0F0E0C;
-    --ink: #F0EDE6;
-    --ink-soft: #C8C2B6;
-    --muted: #8A8478;
-    --line: #2E2C28;
-    --card: #1C1A17;
-    --accent: #C4925A;
-    --accent-deep: #D4A574;
-    --live: #6B9B74;
-    --neu-bg: #22262E;
-    --neu-dark: #14171C;
-    --neu-light: #2F3540;
-    --neu-ink: #E8EAED;
-    --neu-muted: #9AA3B2;
+    --bg: #0A0A0B;
+    --bg-deep: #050506;
+    --ink: #F5F3EE;
+    --ink-soft: #D2CDC4;
+    --muted: #9A948A;
+    --line: #26262B;
+    --card: #121214;
+    --accent: #D4A06A;
+    --accent-deep: #E0B484;
+    --live: #7DB88A;
+    --neu-bg: #1A1D24;
+    --neu-dark: #0C0E12;
+    --neu-light: #2A2F3A;
+    --neu-ink: #F0F2F5;
+    --neu-muted: #A0A8B5;
     --font-display: "Outfit", system-ui, sans-serif;
     --font-serif: "Fraunces", Georgia, serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,13 +33,14 @@ html {
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--accent) var(--bg);
+    background: var(--bg);
 }
 
 body {
     font-family: var(--font-display);
     background:
-        radial-gradient(ellipse 90% 60% at 10% -10%, color-mix(in oklab, var(--accent) 12%, transparent), transparent 55%),
-        radial-gradient(ellipse 70% 50% at 100% 15%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 50%),
+        radial-gradient(ellipse 80% 50% at 15% -5%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 95% 10%, color-mix(in oklab, var(--accent) 8%, transparent), transparent 50%),
         var(--bg);
     color: var(--ink);
     line-height: 1.55;
@@ -511,8 +512,8 @@ section {
 
 /* ——— Troutt neumorphic preview ——— */
 .product--troutt {
-    background: linear-gradient(160deg, #1A1E26 0%, var(--neu-bg) 100%);
-    border-color: color-mix(in oklab, var(--neu-light) 35%, transparent);
+    background: linear-gradient(160deg, #14171E 0%, var(--neu-bg) 100%);
+    border-color: color-mix(in oklab, var(--neu-light) 40%, transparent);
 }
 
 .troutt-preview {
