@@ -9,11 +9,6 @@
     --accent: #D4A06A;
     --accent-deep: #E0B484;
     --live: #7DB88A;
-    --neu-bg: #1A1D24;
-    --neu-dark: #0C0E12;
-    --neu-light: #2A2F3A;
-    --neu-ink: #F0F2F5;
-    --neu-muted: #A0A8B5;
     --font-display: "Outfit", system-ui, sans-serif;
     --font-serif: "Fraunces", Georgia, serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -447,11 +442,9 @@ section {
     text-transform: uppercase;
     padding: 0.3rem 0.55rem;
     border-radius: 999px;
-    background: var(--neu-bg);
-    color: var(--neu-ink);
-    box-shadow:
-        3px 3px 8px var(--neu-dark),
-        -3px -3px 8px var(--neu-light);
+    background: color-mix(in oklab, var(--accent) 16%, var(--card));
+    color: var(--accent-deep);
+    border: 1px solid color-mix(in oklab, var(--accent) 35%, var(--line));
 }
 
 .product-tagline {
@@ -504,6 +497,10 @@ section {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
+}
+
+.showcase--five {
+    grid-template-columns: repeat(5, 1fr);
 }
 
 .phone {
@@ -592,162 +589,9 @@ section {
     opacity: 0.7;
 }
 
-/* ——— Troutt neumorphic preview ——— */
+/* ——— Troutt ——— */
 .product--troutt {
-    background: linear-gradient(160deg, #14171E 0%, var(--neu-bg) 100%);
-    border-color: color-mix(in oklab, var(--neu-light) 40%, transparent);
-}
-
-.troutt-preview {
-    display: grid;
-    grid-template-columns: minmax(220px, 280px) 1fr;
-    gap: 2rem;
-    align-items: center;
-}
-
-.neu-phone {
-    width: min(100%, 260px);
-    margin: 0 auto;
-    padding: 0.85rem;
-    border-radius: 2rem;
-    background: var(--neu-bg);
-    box-shadow:
-        10px 10px 24px var(--neu-dark),
-        -10px -10px 24px var(--neu-light);
-}
-
-.neu-phone-notch {
-    width: 36%;
-    height: 0.45rem;
-    margin: 0.2rem auto 0.85rem;
-    border-radius: 999px;
-    background: color-mix(in oklab, var(--neu-dark) 55%, var(--neu-bg));
-}
-
-.neu-screen {
-    position: relative;
-    padding: 1rem 0.9rem 1.35rem;
-    border-radius: 1.4rem;
-    background: var(--neu-bg);
-    box-shadow:
-        inset 5px 5px 12px var(--neu-dark),
-        inset -5px -5px 12px var(--neu-light);
-    min-height: 320px;
-}
-
-.neu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1.1rem;
-}
-
-.neu-greeting {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--neu-ink);
-    letter-spacing: -0.02em;
-}
-
-.neu-count {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--neu-muted);
-}
-
-.neu-list {
-    display: grid;
-    gap: 0.75rem;
-}
-
-.neu-item {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.8rem 0.9rem;
-    border-radius: 0.95rem;
-    color: var(--neu-ink);
-    font-size: 0.9rem;
-    font-weight: 500;
-    background: var(--neu-bg);
-    box-shadow:
-        5px 5px 12px var(--neu-dark),
-        -5px -5px 12px var(--neu-light);
-}
-
-.neu-item--done {
-    color: var(--neu-muted);
-    text-decoration: line-through;
-    box-shadow:
-        inset 3px 3px 8px var(--neu-dark),
-        inset -3px -3px 8px var(--neu-light);
-}
-
-.neu-check {
-    width: 1.05rem;
-    height: 1.05rem;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow:
-        inset 2px 2px 4px var(--neu-dark),
-        inset -2px -2px 4px var(--neu-light);
-}
-
-.neu-item--done .neu-check {
-    background: color-mix(in oklab, var(--live) 55%, var(--neu-bg));
-    box-shadow: none;
-}
-
-.neu-fab {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    width: 2.6rem;
-    height: 2.6rem;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    line-height: 1;
-    color: var(--neu-ink);
-    background: var(--neu-bg);
-    box-shadow:
-        6px 6px 14px var(--neu-dark),
-        -6px -6px 14px var(--neu-light);
-    cursor: default;
-}
-
-.troutt-copy h4 {
-    font-size: 1.25rem;
-    font-weight: 650;
-    margin-bottom: 0.55rem;
-    color: var(--neu-ink);
-}
-
-.troutt-copy > p {
-    color: var(--neu-muted);
-    margin-bottom: 1rem;
-    max-width: 28rem;
-}
-
-.troutt-points {
-    list-style: none;
-    display: grid;
-    gap: 0.55rem;
-    margin-bottom: 1.1rem;
-}
-
-.troutt-points li {
-    color: var(--neu-ink);
-    font-weight: 500;
-    padding-left: 0.9rem;
-    border-left: 2px solid color-mix(in oklab, var(--neu-dark) 55%, transparent);
-}
-
-.troutt-note {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--accent-deep);
+    background: var(--card);
 }
 
 .contact {
@@ -819,8 +663,7 @@ section {
 }
 
 @media (max-width: 960px) {
-    .about-grid,
-    .troutt-preview {
+    .about-grid {
         grid-template-columns: 1fr;
         gap: 1.75rem;
     }
@@ -833,6 +676,11 @@ section {
         grid-template-columns: 1fr;
         max-width: 300px;
         margin-inline: auto;
+    }
+
+    .showcase--five {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: none;
     }
 }
 
@@ -851,6 +699,12 @@ section {
 
     .feature-strip {
         grid-template-columns: 1fr;
+    }
+
+    .showcase--five {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin-inline: auto;
     }
 
     section {
