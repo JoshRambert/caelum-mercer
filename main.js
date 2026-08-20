@@ -1,12 +1,31 @@
 /**
  * Caelum Mercer — light page runtime
- * Scroll progress + reveal-on-view (no WebGL / custom cursor)
+ * Product order (newest release first) + scroll progress + reveal-on-view
  */
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const root = document.documentElement;
 let scrollY = 0;
 let targetScroll = 0;
+
+/** Newest released product first; unreleased (empty data-released) last. */
+function sortProductsByRelease() {
+  const section = document.querySelector("#products");
+  if (!section) return;
+
+  const products = [...section.querySelectorAll(":scope > .product")];
+  products.sort((a, b) => {
+    const dateA = a.dataset.released || "";
+    const dateB = b.dataset.released || "";
+    if (!dateA && !dateB) return 0;
+    if (!dateA) return 1;
+    if (!dateB) return -1;
+    return dateB.localeCompare(dateA);
+  });
+  products.forEach((el) => section.appendChild(el));
+}
+
+sortProductsByRelease();
 
 function updateScroll() {
   const max = document.documentElement.scrollHeight - window.innerHeight;
