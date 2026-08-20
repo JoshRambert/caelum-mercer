@@ -8,7 +8,7 @@ const root = document.documentElement;
 let scrollY = 0;
 let targetScroll = 0;
 
-/** Newest product first. In-progress (empty data-released) ranks above shipped apps. */
+/** Newest released product first; unreleased (empty data-released) last. */
 function sortProductsByRelease() {
   const section = document.querySelector("#products");
   if (!section) return;
@@ -18,8 +18,8 @@ function sortProductsByRelease() {
     const dateA = a.dataset.released || "";
     const dateB = b.dataset.released || "";
     if (!dateA && !dateB) return 0;
-    if (!dateA) return -1;
-    if (!dateB) return 1;
+    if (!dateA) return 1;
+    if (!dateB) return -1;
     return dateB.localeCompare(dateA);
   });
   products.forEach((el) => section.appendChild(el));
