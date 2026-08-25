@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=16">
+    <link rel="stylesheet" href="site.css?v=17">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
@@ -23,6 +23,10 @@
                 <span class="logo-mark">C</span>
                 <span class="logo-text">Caelum Mercer</span>
             </a>
+            <nav class="site-nav">
+                <button type="button" class="nav-link" data-open="about">about</button>
+                <button type="button" class="nav-link" data-open="contact">contact</button>
+            </nav>
         </div>
     </header>
 
@@ -40,17 +44,6 @@
                 <div class="screen screen--m4"><pre class="screen-feed" data-speed="0.9"></pre></div>
                 <div class="screen screen--m5"><pre class="screen-feed" data-speed="1.35"></pre></div>
             </div>
-
-            <nav class="console" aria-label="Site">
-                <p class="console-prompt" aria-hidden="true">caelum@lab:~$</p>
-                <button type="button" class="console-link" data-open="about">
-                    <span class="console-caret" aria-hidden="true">&gt;</span>about
-                </button>
-                <button type="button" class="console-link" data-open="contact">
-                    <span class="console-caret" aria-hidden="true">&gt;</span>contact
-                </button>
-                <p class="console-cursor" aria-hidden="true">_</p>
-            </nav>
 
             <button class="hotspot hotspot--window" type="button">
                 <span class="hotspot-label">the forest keeps time</span>

@@ -110,6 +110,27 @@ button {
     font-size: 0.95rem;
 }
 
+.site-nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+/* Reads over whichever part of the painting is behind the header, so it carries
+   its own contrast rather than relying on the header scrim alone. */
+.nav-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: color-mix(in oklab, var(--ink) 88%, transparent);
+    text-shadow: 0 1px 10px #000, 0 0 24px #000;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+    color: var(--ink);
+}
+
 .lab {
     position: relative;
     height: 100svh;
@@ -238,71 +259,6 @@ html[data-sky="day"] .sky-glow {
     white-space: pre;
     transform: translateY(0);
     transition: transform 0.9s linear;
-}
-
-/* Site navigation lives on the ultrawide's left panel, where a code feed used
-   to scroll, so it reads as another window open in the lab. */
-.console {
-    position: absolute;
-    left: 62.5%;
-    top: 38.6%;
-    width: 8%;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15cqw;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.9cqw;
-    line-height: 1.5;
-    color: #8ce8ff;
-    text-shadow: 0 0 0.3cqw color-mix(in oklab, #8ce8ff 70%, transparent);
-    mix-blend-mode: screen;
-}
-
-.console-prompt {
-    opacity: 0.7;
-    letter-spacing: -0.02em;
-}
-
-.console-link {
-    display: flex;
-    align-items: baseline;
-    gap: 0.35cqw;
-    padding: 0.12cqw 0.3cqw 0.12cqw 0.1cqw;
-    border-radius: 0.12cqw;
-    font: inherit;
-    color: inherit;
-    text-shadow: inherit;
-    background: none;
-    transition: background 0.18s, color 0.18s, translate 0.18s var(--ease-out);
-}
-
-.console-caret {
-    opacity: 0.55;
-    transition: opacity 0.18s;
-}
-
-.console-link:hover,
-.console-link:focus-visible {
-    translate: 0.25cqw 0;
-    color: #dcf7ff;
-    background: color-mix(in oklab, #2fd0ff 28%, transparent);
-}
-
-.console-link:hover .console-caret,
-.console-link:focus-visible .console-caret {
-    opacity: 1;
-}
-
-.console-cursor {
-    opacity: 0.8;
-    animation: console-blink 1.1s steps(1, end) infinite;
-}
-
-@keyframes console-blink {
-    0%, 45% { opacity: 0.85; }
-    50%, 100% { opacity: 0; }
 }
 
 .hotspot {
@@ -831,10 +787,10 @@ html[data-sky="day"] .sky-glow {
     }
 }
 
-/* Portrait: the notebook, the hologram and the console monitor span 27%–71% of
-   the painting, wider than a phone can show at full height. Blow the scene up
-   only as far as that slice allows, centre on it, and let the blurred backdrop
-   fill the bands above and below. */
+/* Portrait: the notebook and the hologram sit between 27% and 60% of the
+   painting, wider than a phone can show at full height. Blow the scene up only
+   as far as that slice allows, centre on it, and let the blurred backdrop fill
+   the bands above and below. */
 @media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
         --scene-w: min(195vw, 150svh);
@@ -853,12 +809,6 @@ html[data-sky="day"] .sky-glow {
     }
 
     /* cqw shrinks with the scene, so the type needs winding back up by hand. */
-    .console {
-        width: 11.5%;
-        font-size: 1.45cqw;
-        gap: 0.3cqw;
-    }
-
     .screen-feed {
         font-size: 0.75cqw;
     }
