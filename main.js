@@ -92,12 +92,13 @@ document.querySelectorAll("[data-open]").forEach((btn) => {
 });
 
 /**
- * Lifts a copy of the tapped hologram off the desk, flies it to the middle of
- * the screen and grows it, so the detail sheet reads as that same panel opening
- * up rather than an unrelated modal.
+ * Lifts a copy of the tapped object off the desk, flies it to the middle of the
+ * screen and grows it, so the detail sheet reads as that same panel opening up
+ * rather than an unrelated modal. The notebook's plate is invisible until it is
+ * cloned, so its pages appear to lift off the page.
  */
 function launchHologram(button) {
-  const plate = button.querySelector(".hologram-plate");
+  const plate = button.querySelector(".hologram-plate, .notebook-plate");
   if (!plate) return Promise.resolve();
 
   const from = plate.getBoundingClientRect();
@@ -151,7 +152,7 @@ function openProduct(button) {
   inspector.showModal();
 }
 
-document.querySelectorAll(".hologram").forEach((btn) => {
+document.querySelectorAll(".hologram, .notebook").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (reduceMotion) {
       openProduct(btn);

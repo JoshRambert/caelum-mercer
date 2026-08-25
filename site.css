@@ -167,8 +167,8 @@ html[data-sky="day"] .lab-photo--day {
 /* Sits over the moon / sun already painted into the window. */
 .sky-glow {
     position: absolute;
-    left: 18.9%;
-    top: 17.3%;
+    left: 18.6%;
+    top: 17.2%;
     width: 7%;
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
@@ -179,8 +179,8 @@ html[data-sky="day"] .lab-photo--day {
 }
 
 html[data-sky="day"] .sky-glow {
-    left: 18.6%;
-    top: 18.9%;
+    left: 18.5%;
+    top: 16.9%;
     width: 11%;
     background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
@@ -208,19 +208,21 @@ html[data-sky="day"] .sky-glow {
     pointer-events: none;
 }
 
+/* No fill: a tinted box would read as a rectangle floating over the painting
+   wherever the traced bounds miss the bezel by a pixel. */
 .screen {
     position: absolute;
     overflow: hidden;
-    background: color-mix(in oklab, #04121c 62%, transparent);
     mix-blend-mode: screen;
 }
 
 /* Coordinates traced from the glowing text areas of the source painting. */
-.screen--m1 { left: 60.8%; top: 13.4%; width: 5.0%; height: 8.4%; }
-.screen--m2 { left: 72.1%; top: 11.1%; width: 5.2%; height: 9.1%; }
-.screen--m3 { left: 61.5%; top: 25.9%; width: 4.5%; height: 8.2%; }
-.screen--m4 { left: 70.3%; top: 25.5%; width: 6.8%; height: 8.6%; }
-.screen--m5 { left: 81.7%; top: 25.5%; width: 5.8%; height: 9.0%; }
+.screen--m1 { left: 60.9%; top: 13.1%; width: 4.7%; height: 9.5%; }
+.screen--m2 { left: 72.2%; top: 10.9%; width: 5.3%; height: 10.0%; }
+/* m3 starts well inside its bezel — Caelum's shoulder covers the left third. */
+.screen--m3 { left: 60.4%; top: 25.6%; width: 5.5%; height: 9.3%; }
+.screen--m4 { left: 70.5%; top: 25.2%; width: 8.4%; height: 9.8%; }
+.screen--m5 { left: 81.7%; top: 25.2%; width: 6.3%; height: 9.7%; }
 
 .screen-feed {
     margin: 0;
@@ -238,16 +240,16 @@ html[data-sky="day"] .sky-glow {
    to scroll, so it reads as another window open in the lab. */
 .console {
     position: absolute;
-    left: 62.6%;
-    top: 39.5%;
-    width: 7.6%;
+    left: 62.9%;
+    top: 38.3%;
+    width: 8%;
     z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.15cqw;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.72cqw;
+    font-size: 0.9cqw;
     line-height: 1.5;
     color: #8ce8ff;
     text-shadow: 0 0 0.3cqw color-mix(in oklab, #8ce8ff 70%, transparent);
@@ -353,17 +355,18 @@ html[data-sky="day"] .sky-glow {
 }
 
 .hotspot--chair {
-    left: 10%;
-    top: 62%;
+    left: 13%;
+    top: 63%;
     width: 1.7%;
     aspect-ratio: 1;
 }
 
-/* Holograms stand on the empty desk in the foreground of the painting. */
+/* Traced to the projector puck painted on the desk, so the plate stands in the
+   cone of light coming off it. */
 .hologram {
     position: absolute;
     z-index: 7;
-    width: 10%;
+    width: 8%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -371,12 +374,65 @@ html[data-sky="day"] .sky-glow {
     animation: hologram-float 6s ease-in-out infinite;
 }
 
-.hologram--troutt { left: 25%; top: 55%; }
-.hologram--nimlo { left: 39%; top: 55%; animation-duration: 7.1s; animation-delay: -1.6s; }
+.hologram--nimlo { left: 50.8%; top: 52.4%; animation-duration: 7.1s; animation-delay: -1.6s; }
 
 /* Hidden while its clone is flying to the centre of the screen. */
-.hologram.is-launching {
+.hologram.is-launching,
+.notebook.is-launching {
     opacity: 0;
+}
+
+/* Troutt is the open sketchbook painted on the desk rather than a projection —
+   this is just the hit area, the lighting and the label over it. */
+.notebook {
+    position: absolute;
+    left: 27%;
+    top: 74.5%;
+    width: 25%;
+    height: 14.5%;
+    z-index: 7;
+    background: none;
+}
+
+.notebook-glow {
+    position: absolute;
+    inset: -18% -8%;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, color-mix(in oklab, var(--accent) 26%, transparent) 0%, transparent 68%);
+    /* Faintly lit at rest so touch users can tell the book is a control. */
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.notebook:hover .notebook-glow,
+.notebook:focus-visible .notebook-glow {
+    opacity: 1;
+}
+
+/* Invisible until it is cloned for the flight to the centre of the screen. */
+.notebook-plate {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 34%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.notebook-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.notebook .hologram-caption {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.4cqw);
+    width: 100%;
+    transform: translateX(-50%);
 }
 
 /* The projector cone rising off the desk. */
@@ -443,6 +499,8 @@ html[data-sky="day"] .sky-glow {
 .hologram-caption {
     text-align: center;
     text-shadow: 0 0.15cqw 0.6cqw #000;
+    /* Wider than the narrow plate it sits under, so it never wraps. */
+    white-space: nowrap;
 }
 
 .hologram-name {
@@ -768,40 +826,41 @@ html[data-sky="day"] .sky-glow {
     }
 }
 
-/* Portrait: letterboxing would shrink the painting to a thin strip, so fill the
-   screen by height and pan to the slice holding Caelum and his desk. */
+/* Portrait: the notebook, the hologram and the console monitor span 27%–71% of
+   the painting, wider than a phone can show at full height. Blow the scene up
+   only as far as that slice allows, centre on it, and let the blurred backdrop
+   fill the bands above and below. */
 @media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
+        --scene-w: min(195vw, 150svh);
         position: absolute;
-        top: 0;
+        top: 50%;
         left: 50%;
-        width: calc(100svh * 3 / 2);
-        height: 100svh;
-        /* Framed so the desk, Caelum and the console monitor all stay on screen. */
-        transform: translateX(-58%);
+        width: var(--scene-w);
+        height: calc(var(--scene-w) / 1.5);
+        transform: translate(-50.7%, -50%);
         box-shadow: none;
-    }
-
-    .lab::before {
-        display: none;
     }
 
     /* Keep the kicker over the visible slice rather than the scene's midpoint. */
     .lab-kicker {
-        left: 58%;
+        left: 50.7%;
     }
 
+    /* cqw shrinks with the scene, so the type needs winding back up by hand. */
     .console {
-        width: 9.6%;
-        font-size: 1.05cqw;
+        width: 11.5%;
+        font-size: 1.45cqw;
+        gap: 0.3cqw;
     }
 
-    .hologram {
-        width: 9.5%;
+    .screen-feed {
+        font-size: 0.75cqw;
     }
 
-    .hologram--troutt { left: 45.5%; top: 54%; }
-    .hologram--nimlo { left: 56%; top: 54%; }
+    .hologram-name { font-size: 1.9cqw; }
+    .hologram-meta { font-size: 1.2cqw; }
+    .hotspot-label { font-size: 1.3cqw; }
 }
 
 @media (prefers-reduced-motion: reduce) {
