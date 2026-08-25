@@ -92,18 +92,17 @@ document.querySelectorAll("[data-open]").forEach((btn) => {
 });
 
 /**
- * Lifts a copy of the tapped object off the desk, flies it to the middle of the
- * screen and grows it, so the detail sheet reads as that same panel opening up
- * rather than an unrelated modal. The notebook's plate is invisible until it is
- * cloned, so its pages appear to lift off the page.
+ * Lifts a copy of the tapped hologram off the desk, flies it to the middle of
+ * the screen and grows it, so the detail sheet reads as that same panel opening
+ * up rather than an unrelated modal.
  */
 function launchHologram(button) {
-  const plate = button.querySelector(".hologram-plate, .notebook-plate");
+  const plate = button.querySelector(".hologram-plate");
   if (!plate) return Promise.resolve();
 
   const from = plate.getBoundingClientRect();
   const clone = plate.cloneNode(true);
-  clone.className = plate.classList.contains("notebook-plate") ? "notebook-fly" : "hologram-fly";
+  clone.className = "hologram-fly";
   clone.style.left = `${from.left}px`;
   clone.style.top = `${from.top}px`;
   clone.style.width = `${from.width}px`;
@@ -111,8 +110,6 @@ function launchHologram(button) {
   document.body.appendChild(clone);
   button.classList.add("is-launching");
 
-  // Caps on both axes so a wide sketchbook and a tall phone plate both land at
-  // a comparable size.
   const grow = Math.min(
     (window.innerHeight * 0.62) / from.height,
     (window.innerWidth * 0.55) / from.width
@@ -147,14 +144,21 @@ function launchHologram(button) {
     .then(() => clone.remove());
 }
 
-function openProduct(button) {
+function openProduct(button, { plain = false } = {}) {
   const template = document.getElementById(`product-${button.dataset.product}`);
   if (!template || !inspector) return;
   inspectorBody.replaceChildren(template.content.cloneNode(true));
+  inspector.classList.toggle("sheet--plain", plain);
   inspector.showModal();
 }
 
-document.querySelectorAll(".hologram, .notebook").forEach((btn) => {
+// The sketchbook is a physical object on the desk, so there is nothing to fly —
+// its sheet just fades up.
+document.querySelectorAll(".notebook").forEach((btn) => {
+  btn.addEventListener("click", () => openProduct(btn, { plain: true }));
+});
+
+document.querySelectorAll(".hologram").forEach((btn) => {
   btn.addEventListener("click", () => {
     if (reduceMotion) {
       openProduct(btn);
@@ -167,9 +171,33 @@ document.querySelectorAll(".hologram, .notebook").forEach((btn) => {
   });
 });
 
+// Matches the .sheet.is-closing animation in site.css.
+const SHEET_FADE_MS = 240;
+
+/** Fades a sheet out before closing it, since <dialog> closes instantly. */
+function dismiss(dialog) {
+  if (reduceMotion || dialog.classList.contains("is-closing")) {
+    dialog.close();
+    return;
+  }
+  dialog.classList.add("is-closing");
+  setTimeout(() => {
+    dialog.classList.remove("is-closing");
+    dialog.close();
+  }, SHEET_FADE_MS);
+}
+
 document.querySelectorAll("dialog").forEach((dialog) => {
   dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) dialog.close();
+    if (event.target === dialog) dismiss(dialog);
+  });
+  dialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    dismiss(dialog);
+  });
+  dialog.querySelector("form[method='dialog']")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    dismiss(dialog);
   });
 });
 

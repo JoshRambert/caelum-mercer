@@ -143,7 +143,10 @@ html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
     overflow: hidden;
     z-index: 1;
     box-shadow: 0 0 80px 20px color-mix(in oklab, black 65%, transparent);
-    transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.02);
+    /* No scale here: a fractional composite scale resamples the whole stage,
+       softening the artwork and every glyph drawn on it. The parallax shift is
+       small enough that the blurred backdrop covers what it uncovers. */
+    transform: translate3d(var(--px, 0), var(--py, 0), 0);
     will-change: transform;
     /* cqw lets every overlay scale with the painting instead of the viewport. */
     container-type: inline-size;
@@ -167,8 +170,8 @@ html[data-sky="day"] .lab-photo--day {
 /* Sits over the moon / sun already painted into the window. */
 .sky-glow {
     position: absolute;
-    left: 18.6%;
-    top: 17.2%;
+    left: 18.5%;
+    top: 16.9%;
     width: 7%;
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
@@ -179,9 +182,9 @@ html[data-sky="day"] .lab-photo--day {
 }
 
 html[data-sky="day"] .sky-glow {
-    left: 17.4%;
-    top: 17.8%;
-    width: 11%;
+    left: 20%;
+    top: 16.6%;
+    width: 12%;
     background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
 
@@ -216,13 +219,14 @@ html[data-sky="day"] .sky-glow {
     mix-blend-mode: screen;
 }
 
-/* Coordinates traced from the glowing text areas of the source painting. */
-.screen--m1 { left: 60.9%; top: 13.1%; width: 4.7%; height: 9.5%; }
-.screen--m2 { left: 72.2%; top: 10.9%; width: 5.3%; height: 10.0%; }
-/* m3 starts well inside its bezel — Caelum's shoulder covers the left third. */
-.screen--m3 { left: 60.4%; top: 25.6%; width: 5.5%; height: 9.3%; }
-.screen--m4 { left: 70.5%; top: 25.2%; width: 8.4%; height: 9.8%; }
-.screen--m5 { left: 81.7%; top: 25.2%; width: 6.3%; height: 9.7%; }
+/* Coordinates traced from the glowing text areas of the source painting. Now
+   that Caelum faces the wall, nothing of his overlaps the top two rows, so each
+   feed gets the full width of its bezel. */
+.screen--m1 { left: 60.8%; top: 12.2%; width: 7.4%; height: 9.7%; }
+.screen--m2 { left: 72.2%; top: 11.1%; width: 7.7%; height: 10.4%; }
+.screen--m3 { left: 61.2%; top: 25.1%; width: 7.4%; height: 9.2%; }
+.screen--m4 { left: 70.3%; top: 24.7%; width: 8.2%; height: 10.2%; }
+.screen--m5 { left: 81.3%; top: 24.9%; width: 7.3%; height: 9.4%; }
 
 .screen-feed {
     margin: 0;
@@ -240,8 +244,8 @@ html[data-sky="day"] .sky-glow {
    to scroll, so it reads as another window open in the lab. */
 .console {
     position: absolute;
-    left: 62.9%;
-    top: 38.3%;
+    left: 62.5%;
+    top: 38.6%;
     width: 8%;
     z-index: 5;
     display: flex;
@@ -374,11 +378,12 @@ html[data-sky="day"] .sky-glow {
     animation: hologram-float 6s ease-in-out infinite;
 }
 
-.hologram--nimlo { left: 50.8%; top: 52.4%; animation-duration: 7.1s; animation-delay: -1.6s; }
+/* Centred on the emitter puck (55.2%) and floating far enough above it that the
+   caption clears the puck's top edge at 75.6% rather than printing across it. */
+.hologram--nimlo { left: 51.2%; top: 43.5%; animation-duration: 7.1s; animation-delay: -1.6s; }
 
 /* Hidden while its clone is flying to the centre of the screen. */
-.hologram.is-launching,
-.notebook.is-launching {
+.hologram.is-launching {
     opacity: 0;
 }
 
@@ -386,10 +391,10 @@ html[data-sky="day"] .sky-glow {
    this is just the hit area, the lighting and the label over it. */
 .notebook {
     position: absolute;
-    left: 27%;
-    top: 74.5%;
-    width: 25%;
-    height: 14.5%;
+    left: 27.6%;
+    top: 75.4%;
+    width: 24.3%;
+    height: 18.7%;
     z-index: 7;
     background: none;
 }
@@ -410,42 +415,12 @@ html[data-sky="day"] .sky-glow {
     opacity: 1;
 }
 
-/* Invisible until it is cloned for the flight to the centre of the screen. */
-.notebook-plate {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* A window onto the painting: the photo is blown up to full scene size and
-   pushed off-frame so only the sketchbook shows through the plate. Percentages
-   are the notebook box (27%, 74.5%, 25%, 14.5%) inverted, and they hold when
-   the plate is cloned because the clone keeps the same pixel size. */
-.notebook-photo {
-    position: absolute;
-    left: -108%;
-    top: -513.8%;
-    width: 400%;
-    height: 689.7%;
-    /* The global `img { max-width: 100% }` would clamp the blow-up back to the
-       plate width and collapse the crop, so opt this one image out. */
-    max-width: none;
-    object-fit: fill;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-}
-
-html[data-sky="night"] .notebook-photo--night,
-html[data-sky="day"] .notebook-photo--day {
-    opacity: 1;
-}
-
+/* Above the book, not below it: the book runs to 94% of the scene and the label
+   would hang off the bottom edge. */
 .notebook .hologram-caption {
     position: absolute;
     left: 50%;
-    top: calc(100% + 0.4cqw);
+    bottom: calc(100% + 0.4cqw);
     width: 100%;
     transform: translateX(-50%);
 }
@@ -520,7 +495,7 @@ html[data-sky="day"] .notebook-photo--day {
 
 .hologram-name {
     display: block;
-    font-size: 1.15cqw;
+    font-size: 1.7cqw;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -528,7 +503,7 @@ html[data-sky="day"] .notebook-photo--day {
 
 .hologram-meta {
     display: block;
-    font-size: 0.72cqw;
+    font-size: 0.95cqw;
     letter-spacing: 0.06em;
     color: var(--accent);
 }
@@ -565,6 +540,11 @@ html[data-sky="day"] .notebook-photo--day {
     animation: sheet-expand 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Opened without a flight leading into it, so it just fades up in place. */
+.sheet--plain[open] {
+    animation: sheet-fade 0.3s ease;
+}
+
 .sheet::backdrop {
     background: color-mix(in oklab, #05060a 62%, transparent);
     backdrop-filter: blur(8px);
@@ -572,6 +552,11 @@ html[data-sky="day"] .notebook-photo--day {
 
 .sheet[open]::backdrop {
     animation: sheet-fade 0.42s ease;
+}
+
+.sheet.is-closing,
+.sheet.is-closing::backdrop {
+    animation: sheet-out 0.24s ease forwards;
 }
 
 @keyframes sheet-expand {
@@ -588,6 +573,11 @@ html[data-sky="day"] .notebook-photo--day {
 @keyframes sheet-fade {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes sheet-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 /* The plate copy that flies from the desk to the centre of the screen. */
@@ -609,20 +599,6 @@ html[data-sky="day"] .notebook-photo--day {
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-/* The sketchbook copy that lifts off the desk. No hologram chrome — it is a
-   physical object, so it just picks up depth as it rises. */
-.notebook-fly {
-    position: fixed;
-    z-index: 60;
-    margin: 0;
-    overflow: hidden;
-    border-radius: 0.4rem;
-    box-shadow: 0 2rem 4rem color-mix(in oklab, black 70%, transparent);
-    transform-origin: center;
-    pointer-events: none;
-    will-change: transform, opacity;
 }
 
 .sheet--copy {
@@ -887,8 +863,8 @@ html[data-sky="day"] .notebook-photo--day {
         font-size: 0.75cqw;
     }
 
-    .hologram-name { font-size: 1.9cqw; }
-    .hologram-meta { font-size: 1.2cqw; }
+    .hologram-name { font-size: 2.6cqw; }
+    .hologram-meta { font-size: 1.5cqw; }
     .hotspot-label { font-size: 1.3cqw; }
 }
 
