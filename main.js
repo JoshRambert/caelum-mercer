@@ -10,20 +10,22 @@ const inspectorBody = document.getElementById("inspector-body");
 const scene = document.getElementById("lab-scene");
 
 const terminalLines = [
-  "sync profile · ok",
-  "hydrate SwiftData cache",
-  "listen auth.session",
-  "compile hologram mesh",
-  "route /troutt → live",
-  "route /nimlo → live",
-  "push store listing",
-  "await next session",
-  "lock workout until rest",
-  "index notes · 128",
-  "search completed elements",
-  "ping betterapps@",
-  "render nebula grain",
-  "keep the desk quiet",
+  "sync profile ok",
+  "hydrate cache",
+  "auth.session up",
+  "build troutt",
+  "build nimlo",
+  "notes indexed",
+  "128 items",
+  "plan generated",
+  "rest timer set",
+  "store listing ok",
+  "diff clean",
+  "tests 42/42",
+  "deploy staged",
+  "ship it",
+  "listening...",
+  "commit signed",
 ];
 
 function isDaylight(date = new Date()) {
@@ -43,33 +45,45 @@ function applySky() {
 applySky();
 setInterval(() => applySky(), 60_000);
 
-function seedTerminals() {
-  document.querySelectorAll(".terminal-feed").forEach((feed, index) => {
+const feeds = [...document.querySelectorAll(".screen-feed")];
+
+function seedScreens() {
+  feeds.forEach((feed, index) => {
     const rotated = [...terminalLines.slice(index), ...terminalLines.slice(0, index)];
-    const block = Array.from({ length: 18 }, (_, i) => rotated[i % rotated.length]).join("\n");
+    const block = Array.from({ length: 24 }, (_, i) => rotated[i % rotated.length]).join("\n");
+    // Duplicated so the scroll can loop back without a visible seam.
     feed.textContent = `${block}\n${block}`;
     feed.dataset.offset = "0";
   });
 }
 
-function tickTerminals() {
-  document.querySelectorAll(".terminal").forEach((screen) => {
-    const feed = screen.querySelector(".terminal-feed");
-    if (!feed) return;
-    const line = 8 * Number(screen.dataset.speed || 1);
-    const next = Number(feed.dataset.offset || 0) + line;
-    const resetAt = feed.scrollHeight / 2;
-    const offset = next >= resetAt ? 0 : next;
-    feed.dataset.offset = String(offset);
-    feed.style.transform = `translateY(-${offset}px)`;
+function tickScreens() {
+  feeds.forEach((feed) => {
+    const lineHeight = feed.scrollHeight / (2 * 24);
+    const step = lineHeight * Number(feed.dataset.speed || 1);
+    const next = Number(feed.dataset.offset || 0) + step;
+    const loopAt = feed.scrollHeight / 2;
+
+    if (next >= loopAt) {
+      feed.style.transition = "none";
+      feed.style.transform = "translateY(0)";
+      feed.dataset.offset = "0";
+      requestAnimationFrame(() => {
+        feed.style.transition = "";
+      });
+      return;
+    }
+
+    feed.dataset.offset = String(next);
+    feed.style.transform = `translateY(-${next}px)`;
   });
 }
 
-seedTerminals();
+seedScreens();
 if (!reduceMotion) {
-  tickTerminals();
-  setInterval(tickTerminals, 2400);
+  setInterval(tickScreens, 1800);
 }
+window.addEventListener("resize", seedScreens);
 
 document.querySelectorAll("[data-open]").forEach((btn) => {
   btn.addEventListener("click", () => {

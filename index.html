@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=8">
+    <link rel="stylesheet" href="site.css?v=9">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
@@ -32,54 +32,52 @@
 
     <main id="lab" class="lab">
         <div class="lab-scene" id="lab-scene">
-            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1080">
-            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1080">
+            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1280">
+            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1280">
 
-            <div class="lab-window" aria-hidden="true">
-                <div class="celestial celestial--sun"></div>
-                <div class="celestial celestial--moon"></div>
+            <div class="sky-glow" aria-hidden="true"></div>
+
+            <div class="screens" aria-hidden="true">
+                <div class="screen screen--m1"><pre class="screen-feed" data-speed="1"></pre></div>
+                <div class="screen screen--m2"><pre class="screen-feed" data-speed="0.8"></pre></div>
+                <div class="screen screen--m3"><pre class="screen-feed" data-speed="1.2"></pre></div>
+                <div class="screen screen--m4"><pre class="screen-feed" data-speed="0.9"></pre></div>
+                <div class="screen screen--m5"><pre class="screen-feed" data-speed="1.35"></pre></div>
+                <div class="screen screen--wide"><pre class="screen-feed" data-speed="0.7"></pre></div>
             </div>
 
-            <div class="monitor-bank" aria-hidden="true">
-                <div class="terminal" data-speed="1.1"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.85"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="1.25"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.95"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="1.4"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.7"><pre class="terminal-feed"></pre></div>
-            </div>
-
-            <button class="hotspot hotspot--window" type="button" data-note="local sky">
-                <span class="hotspot-label">the forest watches</span>
+            <button class="hotspot hotspot--window" type="button">
+                <span class="hotspot-label">the forest keeps time</span>
             </button>
-            <button class="hotspot hotspot--printer" type="button" data-note="printer">
+            <button class="hotspot hotspot--printer" type="button">
                 <span class="hotspot-label">3D printer — idle</span>
             </button>
-            <button class="hotspot hotspot--chair" type="button" data-note="chair">
-                <span class="hotspot-label">thinking chair</span>
+            <button class="hotspot hotspot--chair" type="button">
+                <span class="hotspot-label">the thinking chair</span>
             </button>
 
             <p class="lab-kicker">independent app producer</p>
-            <p class="lab-hint">hover the holograms</p>
 
-            <button class="hologram hologram--troutt" type="button" data-product="troutt" aria-label="Open Troutt">
-                <span class="hologram-beam"></span>
+            <button class="hologram hologram--troutt" type="button" data-product="troutt">
                 <span class="hologram-plate">
-                    <img src="images/troutt-notes.jpg" alt="" width="900" height="1955">
-                    <span class="hologram-caption">
-                        <span class="hologram-name">troutt</span>
-                        <span class="hologram-meta">notes · live</span>
-                    </span>
+                    <img src="images/troutt-notes.jpg" alt="Troutt hologram" width="900" height="1955">
+                    <span class="hologram-scan"></span>
+                </span>
+                <span class="hologram-base"></span>
+                <span class="hologram-caption">
+                    <span class="hologram-name">troutt</span>
+                    <span class="hologram-meta">notes · live on ios</span>
                 </span>
             </button>
-            <button class="hologram hologram--nimlo" type="button" data-product="nimlo" aria-label="Open Nimlo">
-                <span class="hologram-beam"></span>
+            <button class="hologram hologram--nimlo" type="button" data-product="nimlo">
                 <span class="hologram-plate">
-                    <img src="images/nimlo-home.jpg" alt="" width="600" height="1200">
-                    <span class="hologram-caption">
-                        <span class="hologram-name">nimlo</span>
-                        <span class="hologram-meta">fitness · live</span>
-                    </span>
+                    <img src="images/nimlo-home.jpg" alt="Nimlo hologram" width="552" height="1200">
+                    <span class="hologram-scan"></span>
+                </span>
+                <span class="hologram-base"></span>
+                <span class="hologram-caption">
+                    <span class="hologram-name">nimlo</span>
+                    <span class="hologram-meta">fitness · ios &amp; android</span>
                 </span>
             </button>
         </div>
@@ -176,6 +174,6 @@
         </div>
     </template>
 
-    <script src="main.js?v=6" type="module"></script>
+    <script src="main.js?v=7" type="module"></script>
 </body>
 </html>

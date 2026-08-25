@@ -129,18 +129,42 @@ button {
 }
 
 .lab {
+    position: relative;
     height: 100svh;
     display: grid;
     place-items: center;
+    padding: 0;
+    overflow: hidden;
 }
 
+/* Bleeds the painting into the letterbox instead of leaving hard black bars. */
+.lab::before {
+    content: "";
+    position: absolute;
+    inset: -6%;
+    background-image: var(--lab-image, none);
+    background-size: cover;
+    background-position: center;
+    filter: blur(46px) brightness(0.42) saturate(0.75);
+    z-index: 0;
+}
+
+html[data-sky="night"] { --lab-image: url("images/lab-night.jpg"); }
+html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
+
+/* The artwork defines the stage: the scene box matches the 3:2 source image,
+   so every overlay below can be positioned in image coordinates. */
 .lab-scene {
     position: relative;
-    width: min(100vw, calc(100svh * 16 / 9));
-    height: min(100svh, calc(100vw * 9 / 16));
+    width: min(100vw, calc(100svh * 3 / 2));
+    aspect-ratio: 3 / 2;
     overflow: hidden;
-    transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.03);
+    z-index: 1;
+    box-shadow: 0 0 80px 20px color-mix(in oklab, black 65%, transparent);
+    transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.02);
     will-change: transform;
+    /* cqw lets every overlay scale with the painting instead of the viewport. */
+    container-type: inline-size;
 }
 
 .lab-photo {
@@ -148,10 +172,9 @@ button {
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: 50% 48%;
+    object-fit: fill;
     opacity: 0;
-    transition: opacity 1.1s ease;
+    transition: opacity 1.2s ease;
 }
 
 html[data-sky="night"] .lab-photo--night,
@@ -159,47 +182,25 @@ html[data-sky="day"] .lab-photo--day {
     opacity: 1;
 }
 
-.lab-window {
+/* Sits over the moon / sun already painted into the window. */
+.sky-glow {
     position: absolute;
-    left: 4%;
-    top: 6%;
-    width: 22%;
-    height: 38%;
-    pointer-events: none;
-}
-
-.celestial {
-    position: absolute;
-    left: 50%;
-    top: 38%;
-    border-radius: 50%;
+    left: 18.8%;
+    top: 16.8%;
+    width: 7%;
+    aspect-ratio: 1;
     transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.9s ease, transform 1.2s var(--ease-out);
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, color-mix(in oklab, #cfe6ff 42%, transparent) 0%, transparent 62%);
+    animation: sky-breathe 7s ease-in-out infinite;
 }
 
-.celestial--sun {
-    width: 72px;
-    height: 72px;
-    background: radial-gradient(circle at 35% 35%, #fff7d1 0%, #ffd36a 38%, #f59e3a 70%, transparent 74%);
-    box-shadow:
-        0 0 40px 16px color-mix(in oklab, #ffcc66 55%, transparent),
-        0 0 90px 28px color-mix(in oklab, #ff9a3a 35%, transparent);
-}
-
-.celestial--moon {
-    width: 58px;
-    height: 58px;
-    background:
-        radial-gradient(circle at 32% 32%, #f7f3e8 0%, #d9d4c6 55%, #b7b0a0 100%);
-    box-shadow:
-        0 0 28px 10px color-mix(in oklab, #cfe6ff 45%, transparent),
-        0 0 70px 18px color-mix(in oklab, #7ec8ff 25%, transparent);
-}
-
-html[data-sky="day"] .celestial--sun,
-html[data-sky="night"] .celestial--moon {
-    opacity: 1;
+html[data-sky="day"] .sky-glow {
+    left: 19.4%;
+    top: 20.8%;
+    width: 11%;
+    background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
 
 .lab-kicker {
@@ -207,61 +208,49 @@ html[data-sky="night"] .celestial--moon {
     top: calc(var(--header-h) + 0.4rem);
     left: 50%;
     transform: translateX(-50%);
+    z-index: 6;
+    pointer-events: none;
     font-size: 0.75rem;
     letter-spacing: 0.18em;
     text-transform: lowercase;
     color: color-mix(in oklab, var(--ink) 80%, transparent);
     text-shadow: 0 8px 24px #000;
+    animation: hint-pulse 6s ease-in-out infinite;
 }
 
-.lab-hint {
+/* Each .screen is pinned to a monitor that exists in the painting. */
+.screens {
     position: absolute;
-    left: 50%;
-    bottom: 4%;
-    transform: translateX(-50%);
-    z-index: 6;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: lowercase;
-    color: color-mix(in oklab, var(--ink) 78%, transparent);
-    text-shadow: 0 6px 18px #000;
-    animation: hint-pulse 2.8s ease-in-out infinite;
-    pointer-events: none;
-}
-
-.monitor-bank {
-    position: absolute;
-    left: 41%;
-    top: 9%;
-    width: 39%;
-    height: 23%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr 1fr;
-    gap: 1.4% 1.8%;
+    inset: 0;
     z-index: 3;
     pointer-events: none;
 }
 
-.terminal {
+.screen {
+    position: absolute;
     overflow: hidden;
-    border-radius: 3px;
-    background: color-mix(in oklab, #031018 55%, transparent);
-    box-shadow: inset 0 0 12px color-mix(in oklab, #4ad2ff 18%, transparent);
+    background: color-mix(in oklab, #04121c 62%, transparent);
     mix-blend-mode: screen;
 }
 
-.terminal-feed {
+/* Coordinates traced from the glowing text areas of the source painting. */
+.screen--m1 { left: 60.8%; top: 13.2%; width: 5.4%; height: 8.6%; }
+.screen--m2 { left: 72.1%; top: 11.0%; width: 5.8%; height: 9.3%; }
+.screen--m3 { left: 61.4%; top: 25.9%; width: 4.7%; height: 8.4%; }
+.screen--m4 { left: 70.4%; top: 25.3%; width: 9.0%; height: 9.8%; }
+.screen--m5 { left: 81.6%; top: 25.3%; width: 6.2%; height: 9.2%; }
+.screen--wide { left: 62.5%; top: 39.0%; width: 7.4%; height: 15.0%; }
+
+.screen-feed {
     margin: 0;
-    padding: 0.35em 0.45em;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: clamp(5px, 0.72vw, 10px);
-    line-height: 1.35;
-    color: #7ee0ff;
-    text-shadow: 0 0 6px color-mix(in oklab, #7ee0ff 55%, transparent);
+    font-size: 0.46cqw;
+    line-height: 1.5;
+    color: #8ce8ff;
+    text-shadow: 0 0 0.25cqw color-mix(in oklab, #8ce8ff 70%, transparent);
     white-space: pre;
     transform: translateY(0);
-    transition: transform 1.1s linear;
+    transition: transform 0.9s linear;
 }
 
 .hotspot {
@@ -289,7 +278,7 @@ html[data-sky="night"] .celestial--moon {
     white-space: nowrap;
     padding: 0.28rem 0.55rem;
     border-radius: 999px;
-    font-size: 0.68rem;
+    font-size: 0.8cqw;
     letter-spacing: 0.06em;
     background: color-mix(in oklab, #0b1018 78%, transparent);
     border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
@@ -304,120 +293,136 @@ html[data-sky="night"] .celestial--moon {
 }
 
 .hotspot--window {
-    left: 12%;
-    top: 18%;
-    width: 2.1%;
-    height: 3.6%;
+    left: 30%;
+    top: 26%;
+    width: 1.7%;
+    aspect-ratio: 1;
 }
 
 .hotspot--printer {
-    left: 6%;
-    top: 62%;
-    width: 1.8%;
-    height: 3.2%;
+    left: 32%;
+    top: 46%;
+    width: 1.7%;
+    aspect-ratio: 1;
 }
 
 .hotspot--chair {
-    left: 24%;
-    top: 48%;
-    width: 1.8%;
-    height: 3.2%;
+    left: 10%;
+    top: 62%;
+    width: 1.7%;
+    aspect-ratio: 1;
 }
 
+/* Holograms stand on the empty desk in the foreground of the painting. */
 .hologram {
     position: absolute;
     z-index: 7;
-    width: 11.5%;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: none;
-    perspective: 600px;
+    animation: hologram-float 6s ease-in-out infinite;
 }
 
-.hologram--troutt {
-    left: 29%;
-    top: 54%;
-}
+.hologram--troutt { left: 21%; top: 55%; }
+.hologram--nimlo { left: 68%; top: 55%; animation-duration: 7.1s; animation-delay: -1.6s; }
 
-.hologram--nimlo {
-    left: 46%;
-    top: 51%;
-}
-
-.hologram-beam {
+/* The projector cone rising off the desk. */
+.hologram::before {
+    content: "";
     position: absolute;
     left: 50%;
-    bottom: -18%;
-    width: 42%;
-    height: 28%;
+    bottom: 2.5cqw;
+    width: 150%;
+    height: 105%;
     transform: translateX(-50%);
-    background: linear-gradient(to top, color-mix(in oklab, var(--accent) 45%, transparent), transparent);
-    filter: blur(6px);
+    clip-path: polygon(50% 100%, 42% 100%, 0 0, 100% 0, 58% 100%);
+    background: linear-gradient(to top, color-mix(in oklab, var(--accent) 26%, transparent), transparent 85%);
+    filter: blur(0.3cqw);
     pointer-events: none;
 }
 
 .hologram-plate {
     position: relative;
     display: block;
-    border-radius: 0.7rem;
-    overflow: hidden;
-    transform: rotateX(12deg) rotateY(-8deg);
-    border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
-    box-shadow:
-        0 0 24px color-mix(in oklab, var(--accent) 28%, transparent),
-        0 18px 30px color-mix(in oklab, black 40%, transparent);
-    background: color-mix(in oklab, #041018 70%, transparent);
-    animation: hologram-float 5.5s ease-in-out infinite;
-    transition: transform 0.28s var(--ease-out), box-shadow 0.28s;
-}
-
-.hologram--nimlo .hologram-plate {
-    animation-duration: 6.4s;
-    animation-delay: -1.4s;
-    transform: rotateX(10deg) rotateY(7deg);
-}
-
-.hologram-plate img {
     width: 100%;
-    aspect-ratio: 9 / 16;
-    object-fit: cover;
-    opacity: 0.88;
+    border-radius: 0.35cqw;
+    overflow: hidden;
+    border: 0.08cqw solid color-mix(in oklab, var(--accent) 65%, transparent);
+    box-shadow:
+        0 0 1.6cqw color-mix(in oklab, var(--accent) 40%, transparent),
+        inset 0 0 1.2cqw color-mix(in oklab, var(--accent) 30%, transparent);
+    background: #04121c;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+
+/* Full screenshot, never cropped. */
+.hologram-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    opacity: 0.94;
+    filter: saturate(1.2) contrast(1.05);
+}
+
+.hologram-scan {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(to bottom, color-mix(in oklab, var(--accent) 16%, transparent), transparent 45%, color-mix(in oklab, var(--accent) 20%, transparent)),
+        repeating-linear-gradient(
+            to bottom,
+            color-mix(in oklab, #8fe6ff 14%, transparent) 0 0.08cqw,
+            transparent 0.08cqw 0.24cqw
+        );
     mix-blend-mode: screen;
 }
 
+.hologram-base {
+    width: 70%;
+    height: 0.7cqw;
+    margin-top: 0.4cqw;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, color-mix(in oklab, var(--accent) 70%, transparent) 0%, transparent 70%);
+    filter: blur(0.15cqw);
+}
+
 .hologram-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0.45rem 0.5rem 0.5rem;
-    background: linear-gradient(to top, color-mix(in oklab, #031018 88%, transparent), transparent);
-    text-align: left;
+    text-align: center;
+    text-shadow: 0 0.15cqw 0.6cqw #000;
 }
 
 .hologram-name {
     display: block;
-    font-size: clamp(0.75rem, 1.3vw, 1.05rem);
+    font-size: 1.15cqw;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .hologram-meta {
     display: block;
-    font-size: 0.62rem;
+    font-size: 0.72cqw;
     letter-spacing: 0.06em;
     color: var(--accent);
 }
 
 .hologram:hover .hologram-plate,
 .hologram:focus-visible .hologram-plate {
-    transform: rotateX(4deg) rotateY(0deg) translateY(-8px) scale(1.06);
-    box-shadow:
-        0 0 36px color-mix(in oklab, var(--accent) 50%, transparent),
-        0 22px 36px color-mix(in oklab, black 45%, transparent);
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 0 34px color-mix(in oklab, var(--accent) 55%, transparent);
 }
 
 @keyframes hologram-float {
     0%, 100% { translate: 0 0; }
-    50% { translate: 0 -7px; }
+    50% { translate: 0 -6px; }
+}
+
+@keyframes sky-breathe {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
 }
 
 .sheet {
@@ -652,31 +657,7 @@ html[data-sky="night"] .celestial--moon {
         display: none;
     }
 
-    .lab-window {
-        left: 3%;
-        top: 8%;
-        width: 24%;
-        height: 32%;
-    }
-
-    .celestial--sun { width: 44px; height: 44px; }
-    .celestial--moon { width: 38px; height: 38px; }
-
-    .monitor-bank {
-        left: 40%;
-        top: 8%;
-        height: 18%;
-    }
-
-    .hologram {
-        width: 16%;
-    }
-
-    .hologram--troutt { left: 18%; top: 58%; }
-    .hologram--nimlo { left: 38%; top: 55%; }
-
-    .hotspot--printer,
-    .hotspot--chair {
+    .hotspot {
         display: none;
     }
 
@@ -690,15 +671,41 @@ html[data-sky="night"] .celestial--moon {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* Portrait: letterboxing would shrink the painting to a thin strip, so fill the
+   screen by height and pan to the slice holding Caelum and his desk. */
+@media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
-        transform: none;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: calc(100svh * 3 / 2);
+        height: 100svh;
+        transform: translateX(-52%);
+        box-shadow: none;
     }
 
-    .lab-hint,
-    .celestial,
-    .hologram-plate,
-    .terminal-feed {
+    .lab::before {
+        display: none;
+    }
+
+    .hologram {
+        width: 11%;
+    }
+
+    .hologram--troutt { left: 38%; top: 52%; }
+    .hologram--nimlo { left: 54%; top: 52%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lab-scene {
+        --px: 0;
+        --py: 0;
+    }
+
+    .lab-kicker,
+    .sky-glow,
+    .hologram,
+    .screen-feed {
         animation: none;
         transition: none;
     }
