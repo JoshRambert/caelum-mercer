@@ -103,7 +103,7 @@ function launchHologram(button) {
 
   const from = plate.getBoundingClientRect();
   const clone = plate.cloneNode(true);
-  clone.className = "hologram-fly";
+  clone.className = plate.classList.contains("notebook-plate") ? "notebook-fly" : "hologram-fly";
   clone.style.left = `${from.left}px`;
   clone.style.top = `${from.top}px`;
   clone.style.width = `${from.width}px`;
@@ -111,9 +111,11 @@ function launchHologram(button) {
   document.body.appendChild(clone);
   button.classList.add("is-launching");
 
+  // Caps on both axes so a wide sketchbook and a tall phone plate both land at
+  // a comparable size.
   const grow = Math.min(
-    (window.innerHeight * 0.66) / from.height,
-    (window.innerWidth * 0.42) / from.width
+    (window.innerHeight * 0.62) / from.height,
+    (window.innerWidth * 0.55) / from.width
   );
   const dx = window.innerWidth / 2 - (from.left + from.width / 2);
   const dy = window.innerHeight / 2 - (from.top + from.height / 2);

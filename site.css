@@ -179,8 +179,8 @@ html[data-sky="day"] .lab-photo--day {
 }
 
 html[data-sky="day"] .sky-glow {
-    left: 18.5%;
-    top: 16.9%;
+    left: 17.4%;
+    top: 17.8%;
     width: 11%;
     background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
@@ -413,18 +413,33 @@ html[data-sky="day"] .sky-glow {
 /* Invisible until it is cloned for the flight to the centre of the screen. */
 .notebook-plate {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 34%;
-    transform: translate(-50%, -50%);
+    inset: 0;
+    overflow: hidden;
     opacity: 0;
     pointer-events: none;
 }
 
-.notebook-plate img {
-    display: block;
-    width: 100%;
-    height: auto;
+/* A window onto the painting: the photo is blown up to full scene size and
+   pushed off-frame so only the sketchbook shows through the plate. Percentages
+   are the notebook box (27%, 74.5%, 25%, 14.5%) inverted, and they hold when
+   the plate is cloned because the clone keeps the same pixel size. */
+.notebook-photo {
+    position: absolute;
+    left: -108%;
+    top: -513.8%;
+    width: 400%;
+    height: 689.7%;
+    /* The global `img { max-width: 100% }` would clamp the blow-up back to the
+       plate width and collapse the crop, so opt this one image out. */
+    max-width: none;
+    object-fit: fill;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+html[data-sky="night"] .notebook-photo--night,
+html[data-sky="day"] .notebook-photo--day {
+    opacity: 1;
 }
 
 .notebook .hologram-caption {
@@ -594,6 +609,20 @@ html[data-sky="day"] .sky-glow {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+/* The sketchbook copy that lifts off the desk. No hologram chrome — it is a
+   physical object, so it just picks up depth as it rises. */
+.notebook-fly {
+    position: fixed;
+    z-index: 60;
+    margin: 0;
+    overflow: hidden;
+    border-radius: 0.4rem;
+    box-shadow: 0 2rem 4rem color-mix(in oklab, black 70%, transparent);
+    transform-origin: center;
+    pointer-events: none;
+    will-change: transform, opacity;
 }
 
 .sheet--copy {
