@@ -482,11 +482,8 @@ html[data-sky="day"] .sky-glow {
 
 .sheet {
     width: min(980px, calc(100% - 1.5rem));
-    max-height: min(86svh, 900px);
+    max-height: min(86vh, 900px);
     margin: auto;
-    /* The body scrolls, not the dialog, so the close button stays put — on a
-       phone the content is tall enough that it would otherwise scroll away. */
-    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 1.35rem;
     background: color-mix(in oklab, var(--card) 92%, #000);
@@ -496,8 +493,6 @@ html[data-sky="day"] .sky-glow {
 
 /* Picks up where the hologram's flight to centre screen leaves off. */
 .sheet[open] {
-    display: flex;
-    flex-direction: column;
     animation: sheet-expand 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -567,17 +562,12 @@ html[data-sky="day"] .sky-glow {
 }
 
 .sheet-bar {
-    flex: none;
     display: flex;
     justify-content: flex-end;
-    padding: 0.35rem 0.6rem 0;
+    padding: 0.85rem 1rem 0;
 }
 
 .sheet-close {
-    /* Padded out to a comfortable thumb target rather than the size of its
-       five characters. */
-    min-height: 44px;
-    padding: 0.75rem 0.9rem;
     font-size: 0.8rem;
     letter-spacing: 0.08em;
     color: var(--muted);
@@ -588,11 +578,8 @@ html[data-sky="day"] .sky-glow {
 }
 
 .sheet-body {
-    flex: 1;
-    min-height: 0;
     padding: 0 1.5rem 1.75rem;
     overflow: auto;
-    overscroll-behavior: contain;
 }
 
 .eyebrow {
@@ -790,29 +777,9 @@ html[data-sky="day"] .sky-glow {
         display: none;
     }
 
-    /* Stacked in a grid these run to well over a screen of scrolling before the
-       download buttons come into reach. Swiped sideways they cost one screen. */
     .showcase,
     .showcase--five {
-        display: flex;
-        grid-template-columns: none;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        /* Bleeds past the body padding so a card can sit flush to the edge. */
-        margin-inline: -1.5rem;
-        padding-inline: 1.5rem;
-        scroll-padding-inline: 1.5rem;
-        scrollbar-width: none;
-        overscroll-behavior-x: contain;
-    }
-
-    .showcase::-webkit-scrollbar {
-        display: none;
-    }
-
-    .phone {
-        flex: 0 0 min(62%, 230px);
-        scroll-snap-align: center;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .site-footer {
@@ -820,44 +787,34 @@ html[data-sky="day"] .sky-glow {
     }
 }
 
-/* Thumb targets. The links are only as tall as their type, so the hit area is
-   padded out and the padding pulled back off the layout. */
-@media (hover: none) {
-    .nav-link {
-        padding-block: 0.8rem;
-        margin-block: -0.8rem;
-    }
-}
-
-/* Portrait: fitting the whole 3:2 painting on a phone leaves it a thin band in
-   the middle of the screen. Blow it up instead and show only the slice that
-   matters — 27% to 69%, from the sketchbook's label across to the right edge of
-   the near monitor column, which is everything clickable plus a clean cut
-   between the two banks of screens. 42% of the painting, so 100/0.42 ≈ 238vw. */
+/* Portrait: the notebook and the hologram sit between 27% and 60% of the
+   painting, wider than a phone can show at full height. Blow the scene up only
+   as far as that slice allows, centre on it, and let the blurred backdrop fill
+   the bands above and below. */
 @media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
-        --scene-w: min(238vw, 150svh);
+        --scene-w: min(195vw, 150svh);
         position: absolute;
         top: 50%;
         left: 50%;
         width: var(--scene-w);
         height: calc(var(--scene-w) / 1.5);
-        transform: translate(-48%, -50%);
+        transform: translate(-50.7%, -50%);
         box-shadow: none;
     }
 
     /* Keep the kicker over the visible slice rather than the scene's midpoint. */
     .lab-kicker {
-        left: 48%;
+        left: 50.7%;
     }
 
     /* cqw shrinks with the scene, so the type needs winding back up by hand. */
     .screen-feed {
-        font-size: 0.7cqw;
+        font-size: 0.75cqw;
     }
 
-    .hologram-name { font-size: 2.25cqw; }
-    .hologram-meta { font-size: 1.3cqw; }
+    .hologram-name { font-size: 2.6cqw; }
+    .hologram-meta { font-size: 1.5cqw; }
     .hotspot-label { font-size: 1.3cqw; }
 }
 
