@@ -33,8 +33,18 @@ function isDaylight(date = new Date()) {
   return hour >= 6.5 && hour < 18.5;
 }
 
+/**
+ * Both paintings are around ¾MB, and only one is ever on screen. Hold the src
+ * back until a scene is actually wanted so a phone downloads one, not two.
+ */
+function loadScene(sky) {
+  const photo = document.querySelector(`.lab-photo--${sky}`);
+  if (photo && !photo.src) photo.src = photo.dataset.src;
+}
+
 function applySky() {
   const sky = isDaylight() ? "day" : "night";
+  loadScene(sky);
   root.dataset.sky = sky;
   document.querySelector('meta[name="theme-color"]')?.setAttribute(
     "content",
@@ -44,6 +54,14 @@ function applySky() {
 
 applySky();
 setInterval(() => applySky(), 60_000);
+
+// Fetch the other half of the day once the visible one is out of the way, so
+// the crossfade at dawn or dusk has something to fade to. Deliberately a plain
+// timer: the lab animates continuously, so requestIdleCallback can be starved
+// of idle time indefinitely.
+window.addEventListener("load", () => {
+  setTimeout(() => loadScene(isDaylight() ? "night" : "day"), 1500);
+});
 
 const feeds = [...document.querySelectorAll(".screen-feed")];
 
