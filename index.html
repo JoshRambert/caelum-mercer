@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=7">
+    <link rel="stylesheet" href="site.css?v=8">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
@@ -32,29 +32,56 @@
 
     <main id="lab" class="lab">
         <div class="lab-scene" id="lab-scene">
-            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer standing in his cyber-cabin lab at night" width="1920" height="1080">
-            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer standing in his cyber-cabin lab during the day" width="1920" height="1080">
+            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1080">
+            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1080">
 
             <div class="lab-window" aria-hidden="true">
                 <div class="celestial celestial--sun"></div>
                 <div class="celestial celestial--moon"></div>
             </div>
 
-            <p class="lab-kicker">independent app producer</p>
-            <p class="lab-hint">click a project</p>
-
-            <div class="project-rack" role="list">
-                <button class="project-orb" type="button" data-product="troutt" role="listitem">
-                    <span class="project-orb-glow"></span>
-                    <span class="project-orb-name">troutt</span>
-                    <span class="project-orb-meta">notes · live on ios</span>
-                </button>
-                <button class="project-orb" type="button" data-product="nimlo" role="listitem">
-                    <span class="project-orb-glow"></span>
-                    <span class="project-orb-name">nimlo</span>
-                    <span class="project-orb-meta">fitness · ios &amp; android</span>
-                </button>
+            <div class="monitor-bank" aria-hidden="true">
+                <div class="terminal" data-speed="1.1"><pre class="terminal-feed"></pre></div>
+                <div class="terminal" data-speed="0.85"><pre class="terminal-feed"></pre></div>
+                <div class="terminal" data-speed="1.25"><pre class="terminal-feed"></pre></div>
+                <div class="terminal" data-speed="0.95"><pre class="terminal-feed"></pre></div>
+                <div class="terminal" data-speed="1.4"><pre class="terminal-feed"></pre></div>
+                <div class="terminal" data-speed="0.7"><pre class="terminal-feed"></pre></div>
             </div>
+
+            <button class="hotspot hotspot--window" type="button" data-note="local sky">
+                <span class="hotspot-label">the forest watches</span>
+            </button>
+            <button class="hotspot hotspot--printer" type="button" data-note="printer">
+                <span class="hotspot-label">3D printer — idle</span>
+            </button>
+            <button class="hotspot hotspot--chair" type="button" data-note="chair">
+                <span class="hotspot-label">thinking chair</span>
+            </button>
+
+            <p class="lab-kicker">independent app producer</p>
+            <p class="lab-hint">hover the holograms</p>
+
+            <button class="hologram hologram--troutt" type="button" data-product="troutt" aria-label="Open Troutt">
+                <span class="hologram-beam"></span>
+                <span class="hologram-plate">
+                    <img src="images/troutt-notes.jpg" alt="" width="900" height="1955">
+                    <span class="hologram-caption">
+                        <span class="hologram-name">troutt</span>
+                        <span class="hologram-meta">notes · live</span>
+                    </span>
+                </span>
+            </button>
+            <button class="hologram hologram--nimlo" type="button" data-product="nimlo" aria-label="Open Nimlo">
+                <span class="hologram-beam"></span>
+                <span class="hologram-plate">
+                    <img src="images/nimlo-home.jpg" alt="" width="600" height="1200">
+                    <span class="hologram-caption">
+                        <span class="hologram-name">nimlo</span>
+                        <span class="hologram-meta">fitness · live</span>
+                    </span>
+                </span>
+            </button>
         </div>
     </main>
 
@@ -149,6 +176,6 @@
         </div>
     </template>
 
-    <script src="main.js?v=5" type="module"></script>
+    <script src="main.js?v=6" type="module"></script>
 </body>
 </html>

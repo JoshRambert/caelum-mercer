@@ -39,6 +39,7 @@ html {
 body {
     font-family: var(--font-display);
     overflow: hidden;
+    background: #05060a;
 }
 
 a {
@@ -129,13 +130,16 @@ button {
 
 .lab {
     height: 100svh;
+    display: grid;
+    place-items: center;
 }
 
 .lab-scene {
     position: relative;
-    height: 100%;
+    width: min(100vw, calc(100svh * 16 / 9));
+    height: min(100svh, calc(100vw * 9 / 16));
     overflow: hidden;
-    transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.04);
+    transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.03);
     will-change: transform;
 }
 
@@ -145,7 +149,7 @@ button {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 58% 50%;
+    object-position: 50% 48%;
     opacity: 0;
     transition: opacity 1.1s ease;
 }
@@ -157,10 +161,10 @@ html[data-sky="day"] .lab-photo--day {
 
 .lab-window {
     position: absolute;
-    left: 11%;
-    top: 8%;
-    width: min(18vw, 220px);
-    height: min(28vh, 240px);
+    left: 4%;
+    top: 6%;
+    width: 22%;
+    height: 38%;
     pointer-events: none;
 }
 
@@ -213,73 +217,207 @@ html[data-sky="night"] .celestial--moon {
 .lab-hint {
     position: absolute;
     left: 50%;
-    bottom: 8.6rem;
+    bottom: 4%;
     transform: translateX(-50%);
+    z-index: 6;
     font-size: 0.8rem;
     letter-spacing: 0.14em;
     text-transform: lowercase;
     color: color-mix(in oklab, var(--ink) 78%, transparent);
     text-shadow: 0 6px 18px #000;
     animation: hint-pulse 2.8s ease-in-out infinite;
-}
-
-.project-rack {
-    position: absolute;
-    left: 50%;
-    bottom: 2.4rem;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.9rem;
-    z-index: 5;
-}
-
-.project-orb {
-    position: relative;
-    min-width: 11.5rem;
-    padding: 0.95rem 1.15rem 0.9rem;
-    border-radius: 1.1rem;
-    text-align: left;
-    overflow: hidden;
-    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
-    background: color-mix(in oklab, #0b1018 62%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow:
-        0 12px 40px color-mix(in oklab, black 40%, transparent),
-        inset 0 1px 0 color-mix(in oklab, white 12%, transparent);
-    transition: transform 0.25s var(--ease-out), border-color 0.25s, box-shadow 0.25s;
-}
-
-.project-orb:hover,
-.project-orb:focus-visible {
-    transform: translateY(-4px);
-    border-color: color-mix(in oklab, var(--accent) 70%, transparent);
-    box-shadow:
-        0 16px 44px color-mix(in oklab, black 45%, transparent),
-        0 0 24px color-mix(in oklab, var(--accent) 22%, transparent);
-}
-
-.project-orb-glow {
-    position: absolute;
-    inset: auto -20% -70% -20%;
-    height: 90%;
-    background: radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent), transparent 70%);
     pointer-events: none;
 }
 
-.project-orb-name {
+.monitor-bank {
+    position: absolute;
+    left: 41%;
+    top: 9%;
+    width: 39%;
+    height: 23%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr;
+    gap: 1.4% 1.8%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.terminal {
+    overflow: hidden;
+    border-radius: 3px;
+    background: color-mix(in oklab, #031018 55%, transparent);
+    box-shadow: inset 0 0 12px color-mix(in oklab, #4ad2ff 18%, transparent);
+    mix-blend-mode: screen;
+}
+
+.terminal-feed {
+    margin: 0;
+    padding: 0.35em 0.45em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(5px, 0.72vw, 10px);
+    line-height: 1.35;
+    color: #7ee0ff;
+    text-shadow: 0 0 6px color-mix(in oklab, #7ee0ff 55%, transparent);
+    white-space: pre;
+    transform: translateY(0);
+    transition: transform 1.1s linear;
+}
+
+.hotspot {
+    position: absolute;
+    z-index: 4;
+    border-radius: 50%;
+    background: color-mix(in oklab, var(--accent) 18%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 35%, transparent);
+    opacity: 0.35;
+    transition: opacity 0.25s, transform 0.25s var(--ease-out), box-shadow 0.25s;
+}
+
+.hotspot:hover,
+.hotspot:focus-visible {
+    opacity: 1;
+    transform: scale(1.12);
+    box-shadow: 0 0 18px color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
+.hotspot-label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.45rem);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    background: color-mix(in oklab, #0b1018 78%, transparent);
+    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.hotspot:hover .hotspot-label,
+.hotspot:focus-visible .hotspot-label {
+    opacity: 1;
+}
+
+.hotspot--window {
+    left: 12%;
+    top: 18%;
+    width: 2.1%;
+    height: 3.6%;
+}
+
+.hotspot--printer {
+    left: 6%;
+    top: 62%;
+    width: 1.8%;
+    height: 3.2%;
+}
+
+.hotspot--chair {
+    left: 24%;
+    top: 48%;
+    width: 1.8%;
+    height: 3.2%;
+}
+
+.hologram {
+    position: absolute;
+    z-index: 7;
+    width: 11.5%;
+    background: none;
+    perspective: 600px;
+}
+
+.hologram--troutt {
+    left: 29%;
+    top: 54%;
+}
+
+.hologram--nimlo {
+    left: 46%;
+    top: 51%;
+}
+
+.hologram-beam {
+    position: absolute;
+    left: 50%;
+    bottom: -18%;
+    width: 42%;
+    height: 28%;
+    transform: translateX(-50%);
+    background: linear-gradient(to top, color-mix(in oklab, var(--accent) 45%, transparent), transparent);
+    filter: blur(6px);
+    pointer-events: none;
+}
+
+.hologram-plate {
+    position: relative;
     display: block;
-    font-size: 1.35rem;
+    border-radius: 0.7rem;
+    overflow: hidden;
+    transform: rotateX(12deg) rotateY(-8deg);
+    border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+    box-shadow:
+        0 0 24px color-mix(in oklab, var(--accent) 28%, transparent),
+        0 18px 30px color-mix(in oklab, black 40%, transparent);
+    background: color-mix(in oklab, #041018 70%, transparent);
+    animation: hologram-float 5.5s ease-in-out infinite;
+    transition: transform 0.28s var(--ease-out), box-shadow 0.28s;
+}
+
+.hologram--nimlo .hologram-plate {
+    animation-duration: 6.4s;
+    animation-delay: -1.4s;
+    transform: rotateX(10deg) rotateY(7deg);
+}
+
+.hologram-plate img {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    opacity: 0.88;
+    mix-blend-mode: screen;
+}
+
+.hologram-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.45rem 0.5rem 0.5rem;
+    background: linear-gradient(to top, color-mix(in oklab, #031018 88%, transparent), transparent);
+    text-align: left;
+}
+
+.hologram-name {
+    display: block;
+    font-size: clamp(0.75rem, 1.3vw, 1.05rem);
     font-weight: 700;
     letter-spacing: -0.03em;
 }
 
-.project-orb-meta {
+.hologram-meta {
     display: block;
-    margin-top: 0.2rem;
-    font-size: 0.75rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+}
+
+.hologram:hover .hologram-plate,
+.hologram:focus-visible .hologram-plate {
+    transform: rotateX(4deg) rotateY(0deg) translateY(-8px) scale(1.06);
+    box-shadow:
+        0 0 36px color-mix(in oklab, var(--accent) 50%, transparent),
+        0 22px 36px color-mix(in oklab, black 45%, transparent);
+}
+
+@keyframes hologram-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -7px; }
 }
 
 .sheet {
@@ -515,26 +653,31 @@ html[data-sky="night"] .celestial--moon {
     }
 
     .lab-window {
-        left: 6%;
-        top: 10%;
-        width: 22vw;
-        height: 18vh;
+        left: 3%;
+        top: 8%;
+        width: 24%;
+        height: 32%;
     }
 
     .celestial--sun { width: 44px; height: 44px; }
     .celestial--moon { width: 38px; height: 38px; }
 
-    .lab-hint {
-        bottom: 10.5rem;
+    .monitor-bank {
+        left: 40%;
+        top: 8%;
+        height: 18%;
     }
 
-    .project-rack {
-        width: calc(100% - 1.5rem);
-        flex-direction: column;
+    .hologram {
+        width: 16%;
     }
 
-    .project-orb {
-        width: 100%;
+    .hologram--troutt { left: 18%; top: 58%; }
+    .hologram--nimlo { left: 38%; top: 55%; }
+
+    .hotspot--printer,
+    .hotspot--chair {
+        display: none;
     }
 
     .showcase,
@@ -553,7 +696,9 @@ html[data-sky="night"] .celestial--moon {
     }
 
     .lab-hint,
-    .celestial {
+    .celestial,
+    .hologram-plate,
+    .terminal-feed {
         animation: none;
         transition: none;
     }
