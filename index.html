@@ -1,245 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-sky="night">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caelum Mercer</title>
     <meta name="description" content="Caelum Mercer — independent app producer. Thoughtful software for everyday life.">
     <meta property="og:title" content="Caelum Mercer">
-    <meta property="og:description" content="Independent app producer. Thoughtful software for everyday life.">
-    <meta property="og:image" content="images/nimlo-home.jpg">
+    <meta property="og:description" content="Independent app producer. Step into the lab.">
+    <meta property="og:image" content="images/lab-night.jpg">
     <meta name="theme-color" content="#0A0A0B">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=6">
-    <style>html,body{background:#0A0A0B;color:#F5F3EE}</style>
+    <link rel="stylesheet" href="site.css?v=7">
+    <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
-    <div class="site-atmosphere" aria-hidden="true">
-        <div class="atmosphere-glow atmosphere-glow--a"></div>
-        <div class="atmosphere-glow atmosphere-glow--b"></div>
-        <div class="atmosphere-glow atmosphere-glow--c"></div>
-        <div class="atmosphere-wash"></div>
-        <div class="atmosphere-grain"></div>
-        <div class="atmosphere-vignette"></div>
-    </div>
-    <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress-bar"></div></div>
-
     <header class="site-header">
         <div class="header-inner">
-            <a href="#top" class="logo">
+            <a href="#lab" class="logo">
                 <span class="logo-mark">C</span>
                 <span class="logo-text">Caelum Mercer</span>
             </a>
             <nav class="site-nav">
-                <a href="#about" class="nav-link">about</a>
-                <a href="#products" class="nav-link">products</a>
-                <a href="#contact" class="nav-link">contact</a>
+                <button type="button" class="nav-link" data-open="about">about</button>
+                <button type="button" class="nav-link" data-open="contact">contact</button>
             </nav>
         </div>
     </header>
 
-    <main id="top">
-        <section class="hero">
-            <div class="hero-content">
-                <p class="eyebrow reveal" style="--d:0">independent app producer</p>
-                <h1 class="hero-title reveal" style="--d:1">Caelum Mercer</h1>
-                <p class="tagline reveal" style="--d:2">
-                    <span class="serif">Thoughtful software</span> for everyday life.
-                </p>
-                <p class="subtitle reveal" style="--d:3">Small apps with a clear point of view — built to remove friction, not add it.</p>
-                <div class="hero-actions reveal" style="--d:4">
-                    <a href="#products" class="btn btn--primary">see products</a>
-                    <a href="#about" class="btn btn--ghost">the approach</a>
-                </div>
+    <main id="lab" class="lab">
+        <div class="lab-scene" id="lab-scene">
+            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer standing in his cyber-cabin lab at night" width="1920" height="1080">
+            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer standing in his cyber-cabin lab during the day" width="1920" height="1080">
+
+            <div class="lab-window" aria-hidden="true">
+                <div class="celestial celestial--sun"></div>
+                <div class="celestial celestial--moon"></div>
             </div>
-        </section>
 
-        <section id="about" class="about">
-            <div class="section-rail">
-                <span class="section-index">01</span>
-                <span class="section-label">about</span>
+            <p class="lab-kicker">independent app producer</p>
+            <p class="lab-hint">click a project</p>
+
+            <div class="project-rack" role="list">
+                <button class="project-orb" type="button" data-product="troutt" role="listitem">
+                    <span class="project-orb-glow"></span>
+                    <span class="project-orb-name">troutt</span>
+                    <span class="project-orb-meta">notes · live on ios</span>
+                </button>
+                <button class="project-orb" type="button" data-product="nimlo" role="listitem">
+                    <span class="project-orb-glow"></span>
+                    <span class="project-orb-name">nimlo</span>
+                    <span class="project-orb-meta">fitness · ios &amp; android</span>
+                </button>
             </div>
-            <div class="about-grid">
-                <h2 class="about-title reveal-up">
-                    Apps that<br><em class="serif">respect your time</em>
-                </h2>
-                <div class="about-copy">
-                    <p class="about-lead reveal-up" style="--d:1">Caelum Mercer is an independent producer building focused mobile experiences — tools that do one thing well and get out of your way.</p>
-                    <p class="about-body reveal-up" style="--d:2">No bloated feature lists. No guilt-driven engagement. Just software designed for real schedules, real motivation, and real people.</p>
-                    <ul class="principles reveal-up" style="--d:3">
-                        <li><span>clarity</span> over complexity</li>
-                        <li><span>consistency</span> over perfection</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="products" class="products">
-            <div class="section-rail">
-                <span class="section-index">02</span>
-                <span class="section-label">products</span>
-            </div>
-            <h2 class="products-title reveal-up">What I'm building</h2>
-
-            <article class="product product--troutt reveal-up" data-released="2026-08-20">
-                <div class="product-meta">
-                    <div>
-                        <p class="product-category">productivity · ios</p>
-                        <h3 class="product-name product-name--troutt">troutt <span class="version-pill">v2</span></h3>
-                        <p class="product-tagline serif">Capture notes &amp; track tasks.</p>
-                    </div>
-                    <span class="product-status product-status--live">
-                        <span class="status-dot"></span>
-                        available on ios
-                    </span>
-                </div>
-
-                <p class="product-description">
-                    Troutt V2 is a calm space for notes and to-dos — pick a style that fits you, capture what matters, check things off, and find them later with search.
-                </p>
-
-                <div class="showcase showcase--five" aria-label="Troutt app screenshots">
-                    <figure class="phone">
-                        <img src="images/troutt-enter.jpg" alt="Troutt enter screen with droplet mark and Enter button" width="900" height="1955" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/troutt-styles.jpg" alt="Troutt theme picker with styled quote cards" width="900" height="1955" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/troutt-notes.jpg" alt="Troutt notes list with open actions" width="900" height="1955" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/troutt-elements.jpg" alt="Troutt note with elements and to-dos" width="900" height="1955" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/troutt-completed.jpg" alt="Troutt completed elements with search" width="900" height="1955" loading="lazy">
-                    </figure>
-                </div>
-
-                <div class="feature-strip">
-                    <div class="feature">
-                        <span class="feature-num">01</span>
-                        <h4>Capture notes</h4>
-                        <p>Work, plans, or anything else — quick and structured.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">02</span>
-                        <h4>Pick a style</h4>
-                        <p>Themes that set the mood without getting in the way.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">03</span>
-                        <h4>Add elements</h4>
-                        <p>Break notes into to-dos you can actually finish.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">04</span>
-                        <h4>Check them off</h4>
-                        <p>Completed work stays findable with search.</p>
-                    </div>
-                </div>
-
-                <div class="download-row">
-                    <a href="https://apps.apple.com/us/app/troutt/id1503217318" class="store-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        <span><small>Download on the</small>App Store</span>
-                    </a>
-                    <span class="store-btn store-btn--soon" aria-disabled="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M3.18 2.64A1.5 1.5 0 0 0 1.5 4.03v15.94c0 .57.32 1.09.84 1.35L12 16.5l8.66 4.99c.52-.26.84-.78.84-1.35V4.03a1.5 1.5 0 0 0-.84-1.35L12 7.5 3.18 2.64Zm8.82 9.11 6.75 3.89V7.41L12 11.75ZM3.5 5.2l7.25 4.18v4.29L3.5 17.85V5.2Z"/></svg>
-                        <span><small>Coming soon on</small>Google Play</span>
-                    </span>
-                </div>
-            </article>
-
-            <article class="product product--nimlo reveal-up" data-released="2026-07-25">
-                <div class="product-meta">
-                    <div>
-                        <p class="product-category">fitness · ios · android</p>
-                        <h3 class="product-name">nimlo</h3>
-                        <p class="product-tagline serif">Simple workouts. No pressure. Just show up.</p>
-                    </div>
-                    <span class="product-status product-status--live">
-                        <span class="status-dot"></span>
-                        available on ios &amp; android
-                    </span>
-                </div>
-
-                <p class="product-description">
-                    One workout. Four exercises. Clear weight recommendations — then the app locks until your next session. Rest is part of training.
-                </p>
-
-                <div class="showcase" aria-label="Nimlo app screenshots">
-                    <figure class="phone">
-                        <img src="images/nimlo-home.jpg" alt="Nimlo home screen with continue workout circle" width="600" height="1200" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/nimlo-exercise.jpg" alt="Nimlo exercise screen with weight recommendations" width="600" height="1200" loading="lazy">
-                    </figure>
-                    <figure class="phone">
-                        <img src="images/nimlo-focus.jpg" alt="Nimlo profile builder focus selection" width="600" height="1200" loading="lazy">
-                    </figure>
-                </div>
-
-                <div class="feature-strip">
-                    <div class="feature">
-                        <span class="feature-num">01</span>
-                        <h4>Personalized in seconds</h4>
-                        <p>Workouts tailored to you without hours of planning.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">02</span>
-                        <h4>Clear recommendations</h4>
-                        <p>Know exactly what weight to use for every exercise.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">03</span>
-                        <h4>Simple routines</h4>
-                        <p>Four exercises per session. That's it.</p>
-                    </div>
-                    <div class="feature">
-                        <span class="feature-num">04</span>
-                        <h4>Built-in rest</h4>
-                        <p>The app locks until your next session.</p>
-                    </div>
-                </div>
-
-                <div class="download-row">
-                    <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="store-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                        <span><small>Download on the</small>App Store</span>
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.nimlo.android" class="store-btn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M3.18 2.64A1.5 1.5 0 0 0 1.5 4.03v15.94c0 .57.32 1.09.84 1.35L12 16.5l8.66 4.99c.52-.26.84-.78.84-1.35V4.03a1.5 1.5 0 0 0-.84-1.35L12 7.5 3.18 2.64Zm8.82 9.11 6.75 3.89V7.41L12 11.75ZM3.5 5.2l7.25 4.18v4.29L3.5 17.85V5.2Z"/></svg>
-                        <span><small>Get it on</small>Google Play</span>
-                    </a>
-                </div>
-            </article>
-
-        </section>
-
-        <section id="contact" class="contact">
-            <div class="section-rail">
-                <span class="section-index">03</span>
-                <span class="section-label">contact</span>
-            </div>
-            <div class="contact-panel reveal-up">
-                <h2 class="contact-title">Get in <em class="serif">touch</em></h2>
-                <p class="contact-text">Support, feedback, or just saying hello.</p>
-                <a href="mailto:betterapps@caelummercer.com" class="contact-mail">betterapps@caelummercer.com</a>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <p class="brand">Caelum Mercer</p>
-            <p class="copyright">© 2026 Caelum Mercer. All rights reserved.</p>
+    <dialog class="sheet" id="inspector" aria-labelledby="inspector-title">
+        <form method="dialog" class="sheet-bar">
+            <button class="sheet-close" value="close" aria-label="Close project">close</button>
+        </form>
+        <div class="sheet-body" id="inspector-body"></div>
+    </dialog>
+
+    <dialog class="sheet sheet--copy" id="about" aria-labelledby="about-title">
+        <form method="dialog" class="sheet-bar">
+            <button class="sheet-close" value="close" aria-label="Close about">close</button>
+        </form>
+        <div class="sheet-body">
+            <p class="eyebrow">about</p>
+            <h2 id="about-title" class="sheet-title">Apps that <em class="serif">respect your time</em></h2>
+            <p class="sheet-lead">Caelum Mercer is an independent producer building focused mobile experiences — tools that do one thing well and get out of your way.</p>
+            <p class="sheet-copy">No bloated feature lists. No guilt-driven engagement. Just software designed for real schedules, real motivation, and real people.</p>
+            <ul class="principles">
+                <li><span>clarity</span> over complexity</li>
+                <li><span>consistency</span> over perfection</li>
+            </ul>
         </div>
+    </dialog>
+
+    <dialog class="sheet sheet--copy" id="contact" aria-labelledby="contact-title">
+        <form method="dialog" class="sheet-bar">
+            <button class="sheet-close" value="close" aria-label="Close contact">close</button>
+        </form>
+        <div class="sheet-body">
+            <p class="eyebrow">contact</p>
+            <h2 id="contact-title" class="sheet-title">Get in <em class="serif">touch</em></h2>
+            <p class="sheet-copy">Support, feedback, or just saying hello.</p>
+            <a href="mailto:betterapps@caelummercer.com" class="contact-mail">betterapps@caelummercer.com</a>
+        </div>
+    </dialog>
+
+    <footer class="site-footer">
+        <p class="copyright">© 2026 Caelum Mercer. All rights reserved.</p>
     </footer>
 
-    <script src="main.js?v=4" type="module"></script>
+    <template id="product-troutt">
+        <p class="eyebrow">productivity · ios</p>
+        <div class="sheet-heading">
+            <h2 id="inspector-title" class="sheet-title">troutt <span class="version-pill">v2</span></h2>
+            <span class="product-status product-status--live"><span class="status-dot"></span>available on ios</span>
+        </div>
+        <p class="sheet-lead serif">Capture notes &amp; track tasks.</p>
+        <p class="sheet-copy">Troutt V2 is a calm space for notes and to-dos — pick a style that fits you, capture what matters, check things off, and find them later with search.</p>
+        <div class="showcase showcase--five" aria-label="Troutt app screenshots">
+            <figure class="phone"><img src="images/troutt-enter.jpg" alt="Troutt enter screen" width="900" height="1955"></figure>
+            <figure class="phone"><img src="images/troutt-styles.jpg" alt="Troutt theme picker" width="900" height="1955"></figure>
+            <figure class="phone"><img src="images/troutt-notes.jpg" alt="Troutt notes list" width="900" height="1955"></figure>
+            <figure class="phone"><img src="images/troutt-elements.jpg" alt="Troutt elements and to-dos" width="900" height="1955"></figure>
+            <figure class="phone"><img src="images/troutt-completed.jpg" alt="Troutt completed elements" width="900" height="1955"></figure>
+        </div>
+        <div class="download-row">
+            <a href="https://apps.apple.com/us/app/troutt/id1503217318" class="store-btn" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <span><small>Download on the</small>App Store</span>
+            </a>
+            <span class="store-btn store-btn--soon" aria-disabled="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M3.18 2.64A1.5 1.5 0 0 0 1.5 4.03v15.94c0 .57.32 1.09.84 1.35L12 16.5l8.66 4.99c.52-.26.84-.78.84-1.35V4.03a1.5 1.5 0 0 0-.84-1.35L12 7.5 3.18 2.64Zm8.82 9.11 6.75 3.89V7.41L12 11.75ZM3.5 5.2l7.25 4.18v4.29L3.5 17.85V5.2Z"/></svg>
+                <span><small>Coming soon on</small>Google Play</span>
+            </span>
+        </div>
+    </template>
+
+    <template id="product-nimlo">
+        <p class="eyebrow">fitness · ios · android</p>
+        <div class="sheet-heading">
+            <h2 id="inspector-title" class="sheet-title">nimlo</h2>
+            <span class="product-status product-status--live"><span class="status-dot"></span>available on ios &amp; android</span>
+        </div>
+        <p class="sheet-lead serif">Simple workouts. No pressure. Just show up.</p>
+        <p class="sheet-copy">One workout. Four exercises. Clear weight recommendations — then the app locks until your next session. Rest is part of training.</p>
+        <div class="showcase" aria-label="Nimlo app screenshots">
+            <figure class="phone"><img src="images/nimlo-home.jpg" alt="Nimlo home screen" width="600" height="1200"></figure>
+            <figure class="phone"><img src="images/nimlo-exercise.jpg" alt="Nimlo exercise screen" width="600" height="1200"></figure>
+            <figure class="phone"><img src="images/nimlo-focus.jpg" alt="Nimlo focus selection" width="600" height="1200"></figure>
+        </div>
+        <div class="download-row">
+            <a href="https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073" class="store-btn" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                <span><small>Download on the</small>App Store</span>
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.nimlo.android" class="store-btn" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true"><path d="M3.18 2.64A1.5 1.5 0 0 0 1.5 4.03v15.94c0 .57.32 1.09.84 1.35L12 16.5l8.66 4.99c.52-.26.84-.78.84-1.35V4.03a1.5 1.5 0 0 0-.84-1.35L12 7.5 3.18 2.64Zm8.82 9.11 6.75 3.89V7.41L12 11.75ZM3.5 5.2l7.25 4.18v4.29L3.5 17.85V5.2Z"/></svg>
+                <span><small>Get it on</small>Google Play</span>
+            </a>
+        </div>
+    </template>
+
+    <script src="main.js?v=5" type="module"></script>
 </body>
 </html>

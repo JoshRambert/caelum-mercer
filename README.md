@@ -1,7 +1,7 @@
 # Caelum Mercer
 
 Personal site for independent app producer Caelum Mercer.
-Showcases Nimlo and Troutt with a calm, product-neutral design.
+An interactive lab scene with Troutt and Nimlo — click a project for descriptions and store listings. The sun or moon follows the visitor’s local time of day.
 
 ## Local Development
 
