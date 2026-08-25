@@ -91,13 +91,76 @@ document.querySelectorAll("[data-open]").forEach((btn) => {
   });
 });
 
+/**
+ * Lifts a copy of the tapped hologram off the desk, flies it to the middle of
+ * the screen and grows it, so the detail sheet reads as that same panel opening
+ * up rather than an unrelated modal.
+ */
+function launchHologram(button) {
+  const plate = button.querySelector(".hologram-plate");
+  if (!plate) return Promise.resolve();
+
+  const from = plate.getBoundingClientRect();
+  const clone = plate.cloneNode(true);
+  clone.className = "hologram-fly";
+  clone.style.left = `${from.left}px`;
+  clone.style.top = `${from.top}px`;
+  clone.style.width = `${from.width}px`;
+  clone.style.height = `${from.height}px`;
+  document.body.appendChild(clone);
+  button.classList.add("is-launching");
+
+  const grow = Math.min(
+    (window.innerHeight * 0.66) / from.height,
+    (window.innerWidth * 0.42) / from.width
+  );
+  const dx = window.innerWidth / 2 - (from.left + from.width / 2);
+  const dy = window.innerHeight / 2 - (from.top + from.height / 2);
+
+  // Timing is linear so the keyframe offsets stay in step with the wall clock:
+  // the flight owns the first 62%, then it dissolves as the sheet expands.
+  return clone
+    .animate(
+      [
+        {
+          transform: "translate(0, 0) scale(1)",
+          opacity: 1,
+          easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        },
+        {
+          transform: `translate(${dx}px, ${dy}px) scale(${grow})`,
+          opacity: 1,
+          offset: 0.62,
+          easing: "ease-in",
+        },
+        {
+          transform: `translate(${dx}px, ${dy}px) scale(${grow * 1.1})`,
+          opacity: 0,
+        },
+      ],
+      { duration: 620, easing: "linear" }
+    )
+    .finished.catch(() => {})
+    .then(() => clone.remove());
+}
+
+function openProduct(button) {
+  const template = document.getElementById(`product-${button.dataset.product}`);
+  if (!template || !inspector) return;
+  inspectorBody.replaceChildren(template.content.cloneNode(true));
+  inspector.showModal();
+}
+
 document.querySelectorAll(".hologram").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const id = btn.dataset.product;
-    const template = document.getElementById(`product-${id}`);
-    if (!template || !inspector) return;
-    inspectorBody.replaceChildren(template.content.cloneNode(true));
-    inspector.showModal();
+    if (reduceMotion) {
+      openProduct(btn);
+      return;
+    }
+    const flight = launchHologram(btn);
+    // Open just before the clone lands so the two motions read as one.
+    setTimeout(() => openProduct(btn), 400);
+    flight.then(() => btn.classList.remove("is-launching"));
   });
 });
 
