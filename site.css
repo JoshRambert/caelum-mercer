@@ -209,21 +209,6 @@ html[data-sky="day"] .sky-glow {
     background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
 
-.lab-kicker {
-    position: absolute;
-    top: calc(var(--header-h) + 0.4rem);
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 6;
-    pointer-events: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: lowercase;
-    color: color-mix(in oklab, var(--ink) 80%, transparent);
-    text-shadow: 0 8px 24px #000;
-    animation: hint-pulse 6s ease-in-out infinite;
-}
-
 /* Each .screen is pinned to a monitor that exists in the painting. */
 .screens {
     position: absolute;
@@ -763,11 +748,6 @@ html[data-sky="day"] .sky-glow {
     color: color-mix(in oklab, var(--muted) 80%, transparent);
 }
 
-@keyframes hint-pulse {
-    0%, 100% { opacity: 0.55; }
-    50% { opacity: 1; }
-}
-
 @media (max-width: 820px) {
     .logo-text {
         display: none;
@@ -804,10 +784,6 @@ html[data-sky="day"] .sky-glow {
     }
 
     /* Keep the kicker over the visible slice rather than the scene's midpoint. */
-    .lab-kicker {
-        left: 50.7%;
-    }
-
     /* cqw shrinks with the scene, so the type needs winding back up by hand. */
     .screen-feed {
         font-size: 0.75cqw;
@@ -824,7 +800,6 @@ html[data-sky="day"] .sky-glow {
         --py: 0;
     }
 
-    .lab-kicker,
     .sky-glow,
     .hologram,
     .screen-feed {
