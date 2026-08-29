@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=8">
+    <link rel="stylesheet" href="site.css?v=9">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
@@ -32,21 +32,23 @@
 
     <main id="lab" class="lab">
         <div class="lab-scene" id="lab-scene">
-            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1080">
-            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1080">
+            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1280">
+            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1280">
 
             <div class="lab-window" aria-hidden="true">
                 <div class="celestial celestial--sun"></div>
                 <div class="celestial celestial--moon"></div>
             </div>
 
-            <div class="monitor-bank" aria-hidden="true">
-                <div class="terminal" data-speed="1.1"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.85"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="1.25"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.95"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="1.4"><pre class="terminal-feed"></pre></div>
-                <div class="terminal" data-speed="0.7"><pre class="terminal-feed"></pre></div>
+            <div class="screen-fx" aria-hidden="true">
+                <span class="screen-glow screen-glow--wall-a"></span>
+                <span class="screen-glow screen-glow--wall-b"></span>
+                <span class="screen-glow screen-glow--wall-c"></span>
+                <span class="screen-glow screen-glow--wall-d"></span>
+                <span class="screen-glow screen-glow--wall-e"></span>
+                <span class="screen-glow screen-glow--desk"></span>
+                <span class="screen-glow screen-glow--tablet"></span>
+                <span class="screen-cursor"></span>
             </div>
 
             <button class="hotspot hotspot--window" type="button" data-note="local sky">
@@ -176,6 +178,6 @@
         </div>
     </template>
 
-    <script src="main.js?v=6" type="module"></script>
+    <script src="main.js?v=7" type="module"></script>
 </body>
 </html>
