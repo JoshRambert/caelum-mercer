@@ -1,6 +1,7 @@
 /**
  * Caelum Mercer — lab runtime
- * Local sun/moon, desk holograms, live terminals, light parallax
+ * Local sun/moon, desk holograms, light parallax
+ * (screen glow, scanlines, and cursor are pure CSS — see .screen-fx)
  */
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -8,23 +9,6 @@ const root = document.documentElement;
 const inspector = document.getElementById("inspector");
 const inspectorBody = document.getElementById("inspector-body");
 const scene = document.getElementById("lab-scene");
-
-const terminalLines = [
-  "sync profile · ok",
-  "hydrate SwiftData cache",
-  "listen auth.session",
-  "compile hologram mesh",
-  "route /troutt → live",
-  "route /nimlo → live",
-  "push store listing",
-  "await next session",
-  "lock workout until rest",
-  "index notes · 128",
-  "search completed elements",
-  "ping betterapps@",
-  "render nebula grain",
-  "keep the desk quiet",
-];
 
 function isDaylight(date = new Date()) {
   const hour = date.getHours() + date.getMinutes() / 60;
@@ -42,34 +26,6 @@ function applySky() {
 
 applySky();
 setInterval(() => applySky(), 60_000);
-
-function seedTerminals() {
-  document.querySelectorAll(".terminal-feed").forEach((feed, index) => {
-    const rotated = [...terminalLines.slice(index), ...terminalLines.slice(0, index)];
-    const block = Array.from({ length: 18 }, (_, i) => rotated[i % rotated.length]).join("\n");
-    feed.textContent = `${block}\n${block}`;
-    feed.dataset.offset = "0";
-  });
-}
-
-function tickTerminals() {
-  document.querySelectorAll(".terminal").forEach((screen) => {
-    const feed = screen.querySelector(".terminal-feed");
-    if (!feed) return;
-    const line = 8 * Number(screen.dataset.speed || 1);
-    const next = Number(feed.dataset.offset || 0) + line;
-    const resetAt = feed.scrollHeight / 2;
-    const offset = next >= resetAt ? 0 : next;
-    feed.dataset.offset = String(offset);
-    feed.style.transform = `translateY(-${offset}px)`;
-  });
-}
-
-seedTerminals();
-if (!reduceMotion) {
-  tickTerminals();
-  setInterval(tickTerminals, 2400);
-}
 
 document.querySelectorAll("[data-open]").forEach((btn) => {
   btn.addEventListener("click", () => {
