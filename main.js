@@ -10,22 +10,21 @@ const inspectorBody = document.getElementById("inspector-body");
 const scene = document.getElementById("lab-scene");
 
 const terminalLines = [
-  "sync profile ok",
-  "hydrate cache",
-  "auth.session up",
-  "build troutt",
-  "build nimlo",
-  "notes indexed",
-  "128 items",
-  "plan generated",
-  "rest timer set",
-  "store listing ok",
-  "diff clean",
-  "tests 42/42",
-  "deploy staged",
-  "ship it",
-  "listening...",
-  "commit signed",
+  "> sync profile …… ok",
+  "> hydrate cache … 128kb",
+  "> auth.session …… up",
+  "> build troutt …… done",
+  "> build nimlo ……… done",
+  "> notes indexed … 128",
+  "> plan generated … ok",
+  "> rest timer ……… set",
+  "> store listing … ok",
+  "> git diff ……… clean",
+  "> tests ………… 42/42",
+  "> deploy staged … ok",
+  "> commit signed … ok",
+  "> listening …………",
+  "> ship it",
 ];
 
 function isDaylight(date = new Date()) {
@@ -46,42 +45,41 @@ applySky();
 setInterval(() => applySky(), 60_000);
 
 const feeds = [...document.querySelectorAll(".screen-feed")];
+const FEED_PX_PER_SEC = 22;
+const FEED_LINES = 36;
 
 function seedScreens() {
   feeds.forEach((feed, index) => {
     const rotated = [...terminalLines.slice(index), ...terminalLines.slice(0, index)];
-    const block = Array.from({ length: 24 }, (_, i) => rotated[i % rotated.length]).join("\n");
+    const block = Array.from({ length: FEED_LINES }, (_, i) => rotated[i % rotated.length]).join("\n");
     // Duplicated so the scroll can loop back without a visible seam.
     feed.textContent = `${block}\n${block}`;
     feed.dataset.offset = "0";
+    feed.style.transform = "translateY(0)";
   });
 }
 
-function tickScreens() {
+let lastFeedTick = performance.now();
+
+function tickScreens(now) {
+  const dt = Math.min((now - lastFeedTick) / 1000, 0.05);
+  lastFeedTick = now;
+
   feeds.forEach((feed) => {
-    const lineHeight = feed.scrollHeight / (2 * 24);
-    const step = lineHeight * Number(feed.dataset.speed || 1);
-    const next = Number(feed.dataset.offset || 0) + step;
     const loopAt = feed.scrollHeight / 2;
-
-    if (next >= loopAt) {
-      feed.style.transition = "none";
-      feed.style.transform = "translateY(0)";
-      feed.dataset.offset = "0";
-      requestAnimationFrame(() => {
-        feed.style.transition = "";
-      });
-      return;
-    }
-
+    if (!loopAt) return;
+    let next = Number(feed.dataset.offset || 0) + FEED_PX_PER_SEC * Number(feed.dataset.speed || 1) * dt;
+    if (next >= loopAt) next -= loopAt;
     feed.dataset.offset = String(next);
     feed.style.transform = `translateY(-${next}px)`;
   });
+
+  requestAnimationFrame(tickScreens);
 }
 
 seedScreens();
 if (!reduceMotion) {
-  setInterval(tickScreens, 1800);
+  requestAnimationFrame(tickScreens);
 }
 window.addEventListener("resize", seedScreens);
 
