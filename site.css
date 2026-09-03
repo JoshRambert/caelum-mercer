@@ -164,6 +164,21 @@ button {
     color: var(--accent);
 }
 
+.lab-kicker {
+    position: absolute;
+    top: calc(var(--header-h) + 0.4rem);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    pointer-events: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: color-mix(in oklab, var(--ink) 80%, transparent);
+    text-shadow: 0 8px 24px #000;
+    animation: hint-pulse 6s ease-in-out infinite;
+}
+
 .lab-hint {
     position: absolute;
     left: 50%;
@@ -496,6 +511,11 @@ button {
     color: color-mix(in oklab, var(--muted) 80%, transparent);
 }
 
+@keyframes hint-pulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+}
+
 @media (max-width: 820px) {
     .logo-text {
         display: none;
@@ -512,6 +532,10 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .lab-kicker {
+        animation: none;
+    }
+
     .lab-toast {
         transition: none;
     }
