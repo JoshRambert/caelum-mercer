@@ -34,12 +34,14 @@ const renderer = new THREE.WebGLRenderer({
   powerPreference: "high-performance",
 });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = false;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 40);
-const home = new THREE.Vector3(-1.15, 1.72, 5.6);
-const focus = new THREE.Vector3(0.15, 1.2, 0.1);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 40);
+const home = new THREE.Vector3(-1.35, 1.58, 4.7);
+const focus = new THREE.Vector3(0.35, 1.16, 0.08);
 camera.position.copy(home);
 camera.lookAt(focus);
 
@@ -240,8 +242,8 @@ function frame(now) {
   last = now;
   look.x += (look.tx - look.x) * 0.06;
   look.y += (look.ty - look.y) * 0.06;
-  camera.position.set(home.x + look.x * 0.55, home.y + look.y * -0.18, home.z);
-  camera.lookAt(focus.x + look.x * 0.35, focus.y + look.y * -0.12, focus.z);
+  camera.position.set(home.x + look.x * 0.28, home.y + look.y * -0.1, home.z);
+  camera.lookAt(focus.x + look.x * 0.18, focus.y + look.y * -0.08, focus.z);
   world.tick(dt, now / 1000, reduceMotion);
   projectAnchor(world.anchors.notebook, labelEls.notebook);
   projectAnchor(world.anchors.hologram, labelEls.hologram);

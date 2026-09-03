@@ -1,7 +1,7 @@
 # Caelum Mercer
 
 Personal site for independent app producer Caelum Mercer.
-The lab is a coded Three.js cabin — log walls, a live window (sun or moon from the visitor's local time), six scrolling black terminals, a painted wide console, a side panel, an open Troutt notebook, and a Nimlo hologram. Caelum is a slim stylized figure with locs. Move the pointer to look around. Click the book or hologram for store listings. About and contact stay in the header.
+The lab is a coded Three.js cabin. The painted stills are a look-and-feel reference only — mood, layout, and lighting — not the page itself. Log walls, a forest window that follows local day or night, six scrolling black terminals, a still wide console, a side waveform, an open Troutt notebook, and a Nimlo hologram. Caelum stands in the room as a cutout figure. Move the pointer to look around. Click the book or hologram for store listings.
 
 ## Local Development
 
