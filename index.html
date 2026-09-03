@@ -13,8 +13,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=22">
+    <link rel="stylesheet" href="site.css?v=23">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+      }
+    }
+    </script>
 </head>
 <body>
     <header class="site-header">
@@ -32,49 +39,17 @@
 
     <main id="lab" class="lab">
         <div class="lab-scene" id="lab-scene">
-            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg?v=22" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab at night" width="1920" height="1280">
-            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg?v=22" alt="Caelum Mercer in dark robes standing in his cyber-cabin lab during the day" width="1920" height="1280">
-
-            <div class="sky-glow" aria-hidden="true"></div>
-
-            <div class="screens" aria-hidden="true">
-                <div class="screen screen--m1"><pre class="screen-feed" data-speed="1"></pre></div>
-                <div class="screen screen--m2"><pre class="screen-feed" data-speed="0.82"></pre></div>
-                <div class="screen screen--m3"><pre class="screen-feed" data-speed="1.15"></pre></div>
-                <div class="screen screen--m4"><pre class="screen-feed" data-speed="0.94"></pre></div>
-                <div class="screen screen--m5"><pre class="screen-feed" data-speed="1.28"></pre></div>
-                <div class="screen screen--m6"><pre class="screen-feed" data-speed="0.88"></pre></div>
-                <div class="screen screen--wide"><pre class="screen-feed" data-speed="0.7"></pre></div>
-            </div>
-
-            <button class="hotspot hotspot--window" type="button">
-                <span class="hotspot-label">the forest keeps time</span>
+            <canvas id="lab-canvas" aria-label="Caelum Mercer's cabin lab"></canvas>
+            <button class="lab-label" type="button" data-anchor="notebook" data-product="troutt">
+                <span class="hologram-name">troutt</span>
+                <span class="hologram-meta">notes · live on ios</span>
             </button>
-            <button class="hotspot hotspot--printer" type="button">
-                <span class="hotspot-label">3D printer — idle</span>
+            <button class="lab-label" type="button" data-anchor="hologram" data-product="nimlo">
+                <span class="hologram-name">nimlo</span>
+                <span class="hologram-meta">fitness · ios &amp; android</span>
             </button>
-            <button class="hotspot hotspot--chair" type="button">
-                <span class="hotspot-label">the thinking chair</span>
-            </button>
-
-            <button class="notebook" type="button" data-product="troutt">
-                <span class="notebook-glow" aria-hidden="true"></span>
-                <span class="hologram-caption">
-                    <span class="hologram-name">troutt</span>
-                    <span class="hologram-meta">notes · live on ios</span>
-                </span>
-            </button>
-            <button class="hologram hologram--nimlo" type="button" data-product="nimlo">
-                <span class="hologram-plate">
-                    <img src="images/nimlo-home.jpg" alt="Nimlo hologram" width="552" height="1200">
-                    <span class="hologram-scan"></span>
-                </span>
-                <span class="hologram-base"></span>
-                <span class="hologram-caption">
-                    <span class="hologram-name">nimlo</span>
-                    <span class="hologram-meta">fitness · ios &amp; android</span>
-                </span>
-            </button>
+            <p class="lab-toast" id="lab-toast" data-show="0"></p>
+            <p class="lab-hint">look around · tap the desk</p>
         </div>
     </main>
 
@@ -169,6 +144,6 @@
         </div>
     </template>
 
-    <script src="main.js?v=17" type="module"></script>
+    <script src="main.js?v=18" type="module"></script>
 </body>
 </html>
