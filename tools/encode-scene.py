@@ -12,7 +12,7 @@ import sys
 
 from PIL import Image, ImageFilter
 
-TARGET = (1920, 1280)
+TARGET = (1920, 1080)
 QUALITY = 90
 
 src, dest = sys.argv[1], sys.argv[2]

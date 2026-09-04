@@ -155,12 +155,12 @@ button {
 html[data-sky="night"] { --lab-image: url("images/lab-night.jpg"); }
 html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
 
-/* The artwork defines the stage: the scene box matches the 3:2 source image,
+/* The artwork defines the stage: the scene box matches the 16:9 source image,
    so every overlay below can be positioned in image coordinates. */
 .lab-scene {
     position: relative;
-    width: min(100vw, calc(100svh * 3 / 2));
-    aspect-ratio: 3 / 2;
+    width: min(100vw, calc(100svh * 16 / 9));
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     z-index: 1;
     box-shadow: 0 0 80px 20px color-mix(in oklab, black 65%, transparent);
@@ -191,9 +191,9 @@ html[data-sky="day"] .lab-photo--day {
 /* Sits over the moon / sun already painted into the window. */
 .sky-glow {
     position: absolute;
-    left: 18.5%;
-    top: 16.9%;
-    width: 7%;
+    left: 24.2%;
+    top: 16.5%;
+    width: 5.5%;
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
     border-radius: 50%;
@@ -203,9 +203,9 @@ html[data-sky="day"] .lab-photo--day {
 }
 
 html[data-sky="day"] .sky-glow {
-    left: 20%;
-    top: 16.6%;
-    width: 12%;
+    left: 24.2%;
+    top: 16.5%;
+    width: 8%;
     background: radial-gradient(circle, color-mix(in oklab, #ffd48a 45%, transparent) 0%, transparent 64%);
 }
 
@@ -243,11 +243,11 @@ html[data-sky="day"] .sky-glow {
 /* Coordinates traced from the glowing text areas of the source painting. Now
    that Caelum faces the wall, nothing of his overlaps the top two rows, so each
    feed gets the full width of its bezel. */
-.screen--m1 { left: 60.8%; top: 12.2%; width: 7.4%; height: 9.7%; }
-.screen--m2 { left: 72.2%; top: 11.1%; width: 7.7%; height: 10.4%; }
-.screen--m3 { left: 61.2%; top: 25.1%; width: 7.4%; height: 9.2%; }
-.screen--m4 { left: 70.3%; top: 24.7%; width: 8.2%; height: 10.2%; }
-.screen--m5 { left: 81.3%; top: 24.9%; width: 7.3%; height: 9.4%; }
+.screen--m1 { left: 68.7%; top: 19.6%; width: 4.1%; height: 8.2%; }
+.screen--m2 { left: 77.1%; top: 17.3%; width: 4.5%; height: 9.5%; }
+.screen--m3 { left: 69.3%; top: 31.1%; width: 3.7%; height: 7.8%; }
+.screen--m4 { left: 75.7%; top: 30.5%; width: 5.8%; height: 8.9%; }
+.screen--m5 { left: 84.3%; top: 29.8%; width: 4.9%; height: 9.1%; }
 
 .screen-feed {
     margin: 0;
@@ -301,22 +301,22 @@ html[data-sky="day"] .sky-glow {
 }
 
 .hotspot--window {
-    left: 30%;
-    top: 26%;
+    left: 28%;
+    top: 28%;
     width: 1.7%;
     aspect-ratio: 1;
 }
 
 .hotspot--printer {
-    left: 32%;
-    top: 46%;
+    left: 33%;
+    top: 52%;
     width: 1.7%;
     aspect-ratio: 1;
 }
 
 .hotspot--chair {
-    left: 13%;
-    top: 63%;
+    left: 12.5%;
+    top: 68%;
     width: 1.7%;
     aspect-ratio: 1;
 }
@@ -326,7 +326,7 @@ html[data-sky="day"] .sky-glow {
 .hologram {
     position: absolute;
     z-index: 7;
-    width: 8%;
+    width: 5.4%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -336,7 +336,7 @@ html[data-sky="day"] .sky-glow {
 
 /* Centred on the emitter puck (55.2%) and floating far enough above it that the
    caption clears the puck's top edge at 75.6% rather than printing across it. */
-.hologram--nimlo { left: 51.2%; top: 43.5%; animation-duration: 7.1s; animation-delay: -1.6s; }
+.hologram--nimlo { left: 56.8%; top: 54%; animation-duration: 7.1s; animation-delay: -1.6s; }
 
 /* Hidden while its clone is flying to the centre of the screen. */
 .hologram.is-launching {
@@ -347,10 +347,10 @@ html[data-sky="day"] .sky-glow {
    this is just the hit area, the lighting and the label over it. */
 .notebook {
     position: absolute;
-    left: 27.6%;
-    top: 75.4%;
-    width: 24.3%;
-    height: 18.7%;
+    left: 38.5%;
+    top: 71.5%;
+    width: 16.5%;
+    height: 14%;
     z-index: 7;
     background: none;
 }
@@ -787,35 +787,23 @@ html[data-sky="day"] .sky-glow {
     }
 }
 
-/* Portrait: the notebook and the hologram sit between 27% and 60% of the
-   painting, wider than a phone can show at full height. Blow the scene up only
-   as far as that slice allows, centre on it, and let the blurred backdrop fill
-   the bands above and below. */
+/* Portrait: keep the whole 16:9 cabin in frame instead of cropping into the
+   desk. Type is rem-based here because cqw gets tiny on a phone-width scene. */
 @media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
-        --scene-w: min(195vw, 150svh);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: var(--scene-w);
-        height: calc(var(--scene-w) / 1.5);
-        transform: translate(-50.7%, -50%);
+        width: 100vw;
+        height: auto;
+        aspect-ratio: 16 / 9;
         box-shadow: none;
     }
 
-    /* Keep the kicker over the visible slice rather than the scene's midpoint. */
-    .lab-kicker {
-        left: 50.7%;
-    }
-
-    /* cqw shrinks with the scene, so the type needs winding back up by hand. */
     .screen-feed {
-        font-size: 0.75cqw;
+        font-size: 0.7rem;
     }
 
-    .hologram-name { font-size: 2.6cqw; }
-    .hologram-meta { font-size: 1.5cqw; }
-    .hotspot-label { font-size: 1.3cqw; }
+    .hologram-name { font-size: 1.05rem; }
+    .hologram-meta { font-size: 0.72rem; }
+    .hotspot-label { font-size: 0.7rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
