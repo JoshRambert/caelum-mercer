@@ -334,9 +334,24 @@ html[data-sky="day"] .sky-glow {
     animation: hologram-float 6s ease-in-out infinite;
 }
 
-/* Centred on the emitter puck (55.2%) and floating far enough above it that the
-   caption clears the puck's top edge at 75.6% rather than printing across it. */
-.hologram--nimlo { left: 56.8%; top: 54%; animation-duration: 7.1s; animation-delay: -1.6s; }
+/* Centred on the emitter puck. left is the puck centre; translateX(-50%)
+   keeps the plate on that axis. Caption sits above the plate so it does not
+   cover the puck. */
+.hologram--nimlo {
+    left: 64.1%;
+    top: 51.5%;
+    transform: translateX(-50%);
+    animation-duration: 7.1s;
+    animation-delay: -1.6s;
+}
+
+.hologram--nimlo .hologram-caption {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.35cqw);
+    width: max-content;
+    transform: translateX(-50%);
+}
 
 /* Hidden while its clone is flying to the centre of the screen. */
 .hologram.is-launching {
