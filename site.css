@@ -14,6 +14,11 @@
     --font-serif: "Fraunces", Georgia, serif;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --header-h: 4.25rem;
+    /* Fraction of the 16:9 painting that must stay on screen (desk + products). */
+    --stage-x1: 0.37;
+    --stage-x2: 0.70;
+    --stage-y1: 0.40;
+    --stage-y2: 0.90;
 }
 
 *,
@@ -134,6 +139,7 @@ button {
 .lab {
     position: relative;
     height: 100svh;
+    height: 100dvh;
     display: grid;
     place-items: center;
     padding: 0;
@@ -147,7 +153,7 @@ button {
     inset: -6%;
     background-image: var(--lab-image, none);
     background-size: cover;
-    background-position: center;
+    background-position: var(--lab-pos, center);
     filter: blur(46px) brightness(0.42) saturate(0.75);
     z-index: 0;
 }
@@ -155,22 +161,35 @@ button {
 html[data-sky="night"] { --lab-image: url("images/lab-night.jpg"); }
 html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
 
-/* The artwork defines the stage: the scene box matches the 16:9 source image,
-   so every overlay below can be positioned in image coordinates. */
+/* The artwork defines the stage: the scene box always stays 16:9 so overlays
+   can sit in image coordinates. Width grows toward cover, but never so far
+   that the desk products leave the webview. */
 .lab-scene {
     position: relative;
-    width: min(100vw, calc(100svh * 16 / 9));
+    width: min(
+        max(100vw, calc(100dvh * 16 / 9)),
+        calc(100vw / (var(--stage-x2) - var(--stage-x1))),
+        calc(100dvh / (var(--stage-y2) - var(--stage-y1)) * 16 / 9)
+    );
     aspect-ratio: 16 / 9;
     overflow: hidden;
     z-index: 1;
     box-shadow: 0 0 80px 20px color-mix(in oklab, black 65%, transparent);
-    /* No scale here: a fractional composite scale resamples the whole stage,
-       softening the artwork and every glyph drawn on it. The parallax shift is
-       small enough that the blurred backdrop covers what it uncovers. */
-    transform: translate3d(var(--px, 0), var(--py, 0), 0);
+    /* No scale() on the scene: a fractional composite resample softens the
+       artwork and every glyph drawn on it. Size is width + aspect-ratio. */
+    transform: translate3d(var(--scene-x, 0px), var(--scene-y, 0px), 0)
+        translate3d(var(--px, 0px), var(--py, 0px), 0);
     will-change: transform;
     /* cqw lets every overlay scale with the painting instead of the viewport. */
     container-type: inline-size;
+}
+
+.lab-scene.is-fitted {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--scene-w);
+    box-shadow: none;
 }
 
 .lab-photo {
@@ -237,7 +256,7 @@ html[data-sky="day"] .sky-glow {
 .screen-feed {
     margin: 0;
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.46cqw;
+    font-size: max(0.46cqw, 5px);
     line-height: 1.5;
     color: #8ce8ff;
     text-shadow: 0 0 0.25cqw color-mix(in oklab, #8ce8ff 70%, transparent);
@@ -271,7 +290,7 @@ html[data-sky="day"] .sky-glow {
     white-space: nowrap;
     padding: 0.28rem 0.55rem;
     border-radius: 999px;
-    font-size: 0.8cqw;
+    font-size: max(0.8cqw, 0.62rem);
     letter-spacing: 0.06em;
     background: color-mix(in oklab, #0b1018 78%, transparent);
     border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
@@ -451,7 +470,7 @@ html[data-sky="day"] .sky-glow {
 
 .hologram-name {
     display: block;
-    font-size: 1.7cqw;
+    font-size: max(1.7cqw, 0.8rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -459,7 +478,7 @@ html[data-sky="day"] .sky-glow {
 
 .hologram-meta {
     display: block;
-    font-size: 0.95cqw;
+    font-size: max(0.95cqw, 0.58rem);
     letter-spacing: 0.06em;
     color: var(--accent);
 }
@@ -782,23 +801,10 @@ html[data-sky="day"] .sky-glow {
     }
 }
 
-/* Portrait: keep the whole 16:9 cabin in frame instead of cropping into the
-   desk. Type is rem-based here because cqw gets tiny on a phone-width scene. */
 @media (max-aspect-ratio: 5 / 4) {
     .lab-scene {
-        width: 100vw;
-        height: auto;
-        aspect-ratio: 16 / 9;
         box-shadow: none;
     }
-
-    .screen-feed {
-        font-size: 0.7rem;
-    }
-
-    .hologram-name { font-size: 1.05rem; }
-    .hologram-meta { font-size: 0.72rem; }
-    .hotspot-label { font-size: 0.7rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

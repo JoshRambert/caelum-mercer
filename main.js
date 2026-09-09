@@ -9,6 +9,106 @@ const inspector = document.getElementById("inspector");
 const inspectorBody = document.getElementById("inspector-body");
 const scene = document.getElementById("lab-scene");
 
+const SCENE_RATIO = 16 / 9;
+
+function viewportSize() {
+  const vv = window.visualViewport;
+  return {
+    vw: Math.round(vv?.width ?? document.documentElement.clientWidth),
+    vh: Math.round(vv?.height ?? document.documentElement.clientHeight),
+  };
+}
+
+function stageFractions() {
+  const css = getComputedStyle(root);
+  return {
+    x1: parseFloat(css.getPropertyValue("--stage-x1")) || 0.37,
+    x2: parseFloat(css.getPropertyValue("--stage-x2")) || 0.7,
+    y1: parseFloat(css.getPropertyValue("--stage-y1")) || 0.4,
+    y2: parseFloat(css.getPropertyValue("--stage-y2")) || 0.9,
+  };
+}
+
+function clampRange(value, lo, hi) {
+  if (hi < lo) return (lo + hi) / 2;
+  return Math.min(hi, Math.max(lo, value));
+}
+
+/**
+ * Fill the webview with the 16:9 painting. Grow toward cover, then stop
+ * before Troutt / Nimlo would be cropped out, and pin that stage in view.
+ */
+function fitLabScene() {
+  if (!scene) return;
+
+  const { vw, vh } = viewportSize();
+  const stage = stageFractions();
+  const coverW = Math.max(vw, vh * SCENE_RATIO);
+  const maxSafeW = Math.min(
+    vw / (stage.x2 - stage.x1),
+    (vh / (stage.y2 - stage.y1)) * SCENE_RATIO
+  );
+  const sceneW = Math.max(1, Math.round(Math.min(coverW, maxSafeW)));
+  const sceneH = sceneW / SCENE_RATIO;
+
+  let x;
+  if (Math.abs(sceneW - vw) < 2) {
+    x = 0;
+  } else if (sceneW <= vw) {
+    x = (vw - sceneW) / 2;
+  } else {
+    const focus = ((stage.x1 + stage.x2) / 2) * sceneW;
+    x = clampRange(
+      vw / 2 - focus,
+      Math.max(vw - sceneW, -stage.x1 * sceneW),
+      Math.min(0, vw - stage.x2 * sceneW)
+    );
+  }
+
+  let y;
+  if (Math.abs(sceneH - vh) < 2) {
+    y = 0;
+  } else if (sceneH <= vh) {
+    y = (vh - sceneH) / 2;
+  } else {
+    const focus = ((stage.y1 + stage.y2) / 2) * sceneH;
+    y = clampRange(
+      vh / 2 - focus,
+      Math.max(vh - sceneH, -stage.y1 * sceneH),
+      Math.min(0, vh - stage.y2 * sceneH)
+    );
+  }
+
+  x = Math.round(x);
+  y = Math.round(y);
+
+  scene.style.setProperty("--scene-w", `${sceneW}px`);
+  scene.style.setProperty("--scene-x", `${x}px`);
+  scene.style.setProperty("--scene-y", `${y}px`);
+  scene.classList.add("is-fitted");
+
+  const posX = sceneW ? ((-x + vw / 2) / sceneW) * 100 : 50;
+  const posY = sceneH ? ((-y + vh / 2) / sceneH) * 100 : 50;
+  document.querySelector(".lab")?.style.setProperty(
+    "--lab-pos",
+    `${posX.toFixed(2)}% ${posY.toFixed(2)}%`
+  );
+}
+
+fitLabScene();
+let fitFrame = 0;
+function scheduleFit() {
+  if (fitFrame) return;
+  fitFrame = requestAnimationFrame(() => {
+    fitFrame = 0;
+    fitLabScene();
+    seedScreens();
+  });
+}
+window.addEventListener("resize", scheduleFit);
+window.visualViewport?.addEventListener("resize", scheduleFit);
+window.visualViewport?.addEventListener("scroll", scheduleFit);
+
 const terminalLines = [
   "sync profile ok",
   "hydrate cache",
@@ -83,7 +183,6 @@ seedScreens();
 if (!reduceMotion) {
   setInterval(tickScreens, 1800);
 }
-window.addEventListener("resize", seedScreens);
 
 document.querySelectorAll("[data-open]").forEach((btn) => {
   btn.addEventListener("click", () => {
