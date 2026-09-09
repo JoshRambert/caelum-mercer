@@ -638,6 +638,41 @@ html[data-sky="day"] .sky-glow {
     max-width: 40rem;
 }
 
+.app-list {
+    list-style: none;
+    display: grid;
+    gap: 1.4rem;
+}
+
+.app-listing {
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--line);
+}
+
+.app-listing-name {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 0.2rem;
+}
+
+.app-listing-meta {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.55rem;
+}
+
+.app-listing .sheet-lead {
+    font-size: 1.05rem;
+}
+
+.app-listing .sheet-copy {
+    margin-bottom: 0;
+}
+
 .principles {
     list-style: none;
     display: grid;
