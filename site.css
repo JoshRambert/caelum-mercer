@@ -44,6 +44,7 @@ html {
 body {
     font-family: var(--font-display);
     overflow: hidden;
+    overscroll-behavior: none;
     background: #05060a;
 }
 
@@ -144,6 +145,8 @@ button {
     place-items: center;
     padding: 0;
     overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
 }
 
 /* Bleeds the painting into the letterbox instead of leaving hard black bars. */
@@ -163,7 +166,7 @@ html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
 
 /* The artwork defines the stage: the scene box always stays 16:9 so overlays
    can sit in image coordinates. Width grows toward cover, but never so far
-   that the desk products leave the webview. */
+   that the desk products leave the starting view — swipe or drag to look around. */
 .lab-scene {
     position: relative;
     width: min(
@@ -180,6 +183,7 @@ html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
     transform: translate3d(var(--scene-x, 0px), var(--scene-y, 0px), 0)
         translate3d(var(--px, 0px), var(--py, 0px), 0);
     will-change: transform;
+    touch-action: none;
     /* cqw lets every overlay scale with the painting instead of the viewport. */
     container-type: inline-size;
 }
@@ -192,6 +196,14 @@ html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
     box-shadow: none;
 }
 
+.lab-scene.is-pannable {
+    cursor: grab;
+}
+
+.lab-scene.is-panning {
+    cursor: grabbing;
+}
+
 .lab-photo {
     position: absolute;
     inset: 0;
@@ -200,6 +212,9 @@ html[data-sky="day"] { --lab-image: url("images/lab-day.jpg"); }
     object-fit: fill;
     opacity: 0;
     transition: opacity 1.2s ease;
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 html[data-sky="night"] .lab-photo--night,
@@ -670,7 +685,21 @@ html[data-sky="day"] .sky-glow {
 }
 
 .app-listing .sheet-copy {
-    margin-bottom: 0;
+    margin-bottom: 0.9rem;
+}
+
+.app-listing .store-btn {
+    padding: 0.55rem 0.9rem;
+    gap: 0.5rem;
+}
+
+.app-listing .store-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.app-listing .store-btn span {
+    font-size: 0.9rem;
 }
 
 .principles {

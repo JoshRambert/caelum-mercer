@@ -10,6 +10,23 @@ const inspectorBody = document.getElementById("inspector-body");
 const scene = document.getElementById("lab-scene");
 
 const SCENE_RATIO = 16 / 9;
+const PAN_SLOP = 10;
+const labEl = document.querySelector(".lab");
+const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+const camera = {
+  vw: 0,
+  vh: 0,
+  sceneW: 0,
+  sceneH: 0,
+  minX: 0,
+  maxX: 0,
+  minY: 0,
+  maxY: 0,
+  x: 0,
+  y: 0,
+  userPanned: false,
+};
 
 function viewportSize() {
   const vv = window.visualViewport;
@@ -34,9 +51,63 @@ function clampRange(value, lo, hi) {
   return Math.min(hi, Math.max(lo, value));
 }
 
+function axisBounds(view, scene) {
+  if (scene <= view + 1) {
+    const centered = (view - scene) / 2;
+    return { min: centered, max: centered };
+  }
+  return { min: view - scene, max: 0 };
+}
+
+function applyCamera() {
+  if (!scene) return;
+  scene.style.setProperty("--scene-w", `${camera.sceneW}px`);
+  scene.style.setProperty("--scene-x", `${Math.round(camera.x)}px`);
+  scene.style.setProperty("--scene-y", `${Math.round(camera.y)}px`);
+  scene.classList.add("is-fitted");
+  scene.classList.toggle("is-pannable", camera.minX < camera.maxX || camera.minY < camera.maxY);
+
+  const posX = camera.sceneW ? ((-camera.x + camera.vw / 2) / camera.sceneW) * 100 : 50;
+  const posY = camera.sceneH ? ((-camera.y + camera.vh / 2) / camera.sceneH) * 100 : 50;
+  labEl?.style.setProperty("--lab-pos", `${posX.toFixed(2)}% ${posY.toFixed(2)}%`);
+}
+
+function defaultCamera(stage) {
+  let x;
+  if (Math.abs(camera.sceneW - camera.vw) < 2) {
+    x = 0;
+  } else if (camera.sceneW <= camera.vw) {
+    x = (camera.vw - camera.sceneW) / 2;
+  } else {
+    const focus = ((stage.x1 + stage.x2) / 2) * camera.sceneW;
+    x = clampRange(
+      camera.vw / 2 - focus,
+      Math.max(camera.minX, -stage.x1 * camera.sceneW),
+      Math.min(camera.maxX, camera.vw - stage.x2 * camera.sceneW)
+    );
+  }
+
+  let y;
+  if (Math.abs(camera.sceneH - camera.vh) < 2) {
+    y = 0;
+  } else if (camera.sceneH <= camera.vh) {
+    y = (camera.vh - camera.sceneH) / 2;
+  } else {
+    const focus = ((stage.y1 + stage.y2) / 2) * camera.sceneH;
+    y = clampRange(
+      camera.vh / 2 - focus,
+      Math.max(camera.minY, -stage.y1 * camera.sceneH),
+      Math.min(camera.maxY, camera.vh - stage.y2 * camera.sceneH)
+    );
+  }
+
+  return { x: Math.round(x), y: Math.round(y) };
+}
+
 /**
  * Fill the webview with the 16:9 painting. Grow toward cover, then stop
- * before Troutt / Nimlo would be cropped out, and pin that stage in view.
+ * before Troutt / Nimlo would be cropped out of the starting view. Swipe
+ * or drag to look around the rest of the room.
  */
 function fitLabScene() {
   if (!scene) return;
@@ -50,49 +121,28 @@ function fitLabScene() {
   );
   const sceneW = Math.max(1, Math.round(Math.min(coverW, maxSafeW)));
   const sceneH = sceneW / SCENE_RATIO;
+  const xBound = axisBounds(vw, sceneW);
+  const yBound = axisBounds(vh, sceneH);
 
-  let x;
-  if (Math.abs(sceneW - vw) < 2) {
-    x = 0;
-  } else if (sceneW <= vw) {
-    x = (vw - sceneW) / 2;
+  camera.vw = vw;
+  camera.vh = vh;
+  camera.sceneW = sceneW;
+  camera.sceneH = sceneH;
+  camera.minX = xBound.min;
+  camera.maxX = xBound.max;
+  camera.minY = yBound.min;
+  camera.maxY = yBound.max;
+
+  if (camera.userPanned) {
+    camera.x = clampRange(camera.x, camera.minX, camera.maxX);
+    camera.y = clampRange(camera.y, camera.minY, camera.maxY);
   } else {
-    const focus = ((stage.x1 + stage.x2) / 2) * sceneW;
-    x = clampRange(
-      vw / 2 - focus,
-      Math.max(vw - sceneW, -stage.x1 * sceneW),
-      Math.min(0, vw - stage.x2 * sceneW)
-    );
+    const home = defaultCamera(stage);
+    camera.x = home.x;
+    camera.y = home.y;
   }
 
-  let y;
-  if (Math.abs(sceneH - vh) < 2) {
-    y = 0;
-  } else if (sceneH <= vh) {
-    y = (vh - sceneH) / 2;
-  } else {
-    const focus = ((stage.y1 + stage.y2) / 2) * sceneH;
-    y = clampRange(
-      vh / 2 - focus,
-      Math.max(vh - sceneH, -stage.y1 * sceneH),
-      Math.min(0, vh - stage.y2 * sceneH)
-    );
-  }
-
-  x = Math.round(x);
-  y = Math.round(y);
-
-  scene.style.setProperty("--scene-w", `${sceneW}px`);
-  scene.style.setProperty("--scene-x", `${x}px`);
-  scene.style.setProperty("--scene-y", `${y}px`);
-  scene.classList.add("is-fitted");
-
-  const posX = sceneW ? ((-x + vw / 2) / sceneW) * 100 : 50;
-  const posY = sceneH ? ((-y + vh / 2) / sceneH) * 100 : 50;
-  document.querySelector(".lab")?.style.setProperty(
-    "--lab-pos",
-    `${posX.toFixed(2)}% ${posY.toFixed(2)}%`
-  );
+  applyCamera();
 }
 
 fitLabScene();
@@ -108,6 +158,127 @@ function scheduleFit() {
 window.addEventListener("resize", scheduleFit);
 window.visualViewport?.addEventListener("resize", scheduleFit);
 window.visualViewport?.addEventListener("scroll", scheduleFit);
+
+let drag = null;
+let suppressClick = false;
+let inertiaFrame = 0;
+
+function stopInertia() {
+  if (inertiaFrame) {
+    cancelAnimationFrame(inertiaFrame);
+    inertiaFrame = 0;
+  }
+}
+
+function coast(vx, vy) {
+  if (reduceMotion) return;
+  stopInertia();
+  const decay = 0.92;
+  const step = () => {
+    vx *= decay;
+    vy *= decay;
+    if (camera.x <= camera.minX || camera.x >= camera.maxX) vx = 0;
+    if (camera.y <= camera.minY || camera.y >= camera.maxY) vy = 0;
+    if (Math.abs(vx) < 0.35 && Math.abs(vy) < 0.35) {
+      inertiaFrame = 0;
+      applyCamera();
+      return;
+    }
+    camera.x = clampRange(camera.x + vx, camera.minX, camera.maxX);
+    camera.y = clampRange(camera.y + vy, camera.minY, camera.maxY);
+    applyCamera();
+    inertiaFrame = requestAnimationFrame(step);
+  };
+  inertiaFrame = requestAnimationFrame(step);
+}
+
+if (labEl && scene) {
+  labEl.addEventListener("pointerdown", (event) => {
+    if (event.button && event.button !== 0) return;
+    if (document.querySelector("dialog[open]")) return;
+    if (camera.minX >= camera.maxX && camera.minY >= camera.maxY) return;
+
+    stopInertia();
+    drag = {
+      id: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      lastX: event.clientX,
+      lastY: event.clientY,
+      lastT: performance.now(),
+      origX: camera.x,
+      origY: camera.y,
+      vx: 0,
+      vy: 0,
+      moved: false,
+    };
+    try {
+      labEl.setPointerCapture(event.pointerId);
+    } catch {
+      // Safari can throw if the pointer is already released.
+    }
+  });
+
+  labEl.addEventListener(
+    "pointermove",
+    (event) => {
+      if (!drag || event.pointerId !== drag.id) return;
+
+      const dx = event.clientX - drag.startX;
+      const dy = event.clientY - drag.startY;
+      if (!drag.moved) {
+        if (dx * dx + dy * dy < PAN_SLOP * PAN_SLOP) return;
+        drag.moved = true;
+        suppressClick = true;
+        camera.userPanned = true;
+        scene.classList.add("is-panning");
+      }
+
+      const now = performance.now();
+      const dt = Math.max(8, now - drag.lastT);
+      drag.vx = ((event.clientX - drag.lastX) / dt) * 16;
+      drag.vy = ((event.clientY - drag.lastY) / dt) * 16;
+      drag.lastX = event.clientX;
+      drag.lastY = event.clientY;
+      drag.lastT = now;
+
+      camera.x = clampRange(drag.origX + dx, camera.minX, camera.maxX);
+      camera.y = clampRange(drag.origY + dy, camera.minY, camera.maxY);
+      applyCamera();
+    },
+    { passive: true }
+  );
+
+  const endDrag = (event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const moved = drag.moved;
+    const vx = drag.vx;
+    const vy = drag.vy;
+    drag = null;
+    scene.classList.remove("is-panning");
+    if (moved && (Math.abs(vx) > 0.8 || Math.abs(vy) > 0.8)) {
+      coast(vx, vy);
+    }
+    if (moved) {
+      window.setTimeout(() => {
+        suppressClick = false;
+      }, 50);
+    }
+  };
+
+  labEl.addEventListener("pointerup", endDrag);
+  labEl.addEventListener("pointercancel", endDrag);
+
+  labEl.addEventListener(
+    "click",
+    (event) => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    true
+  );
+}
 
 const terminalLines = [
   "sync profile ok",
@@ -300,8 +471,9 @@ document.querySelectorAll("dialog").forEach((dialog) => {
   });
 });
 
-if (!reduceMotion && scene) {
+if (!reduceMotion && scene && finePointer.matches) {
   window.addEventListener("pointermove", (event) => {
+    if (drag || scene.classList.contains("is-panning")) return;
     const x = (event.clientX / window.innerWidth - 0.5) * -10;
     const y = (event.clientY / window.innerHeight - 0.5) * -6;
     scene.style.setProperty("--px", `${x}px`);
