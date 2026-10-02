@@ -212,11 +212,8 @@ if (labEl && scene) {
       vy: 0,
       moved: false,
     };
-    try {
-      labEl.setPointerCapture(event.pointerId);
-    } catch {
-      // Safari can throw if the pointer is already released.
-    }
+    // Capture only once the gesture is a pan. Capturing on pointerdown
+    // retargets the click onto the lab, so Nimlo and Troutt never open.
   });
 
   labEl.addEventListener(
@@ -232,6 +229,11 @@ if (labEl && scene) {
         suppressClick = true;
         camera.userPanned = true;
         scene.classList.add("is-panning");
+        try {
+          labEl.setPointerCapture(event.pointerId);
+        } catch {
+          // Safari can throw if the pointer is already released.
+        }
       }
 
       const now = performance.now();
