@@ -26,3 +26,4 @@ Live: https://caelummercer.pages.dev
 - [Nimlo on the App Store](https://apps.apple.com/us/app/nimlo-workout-planner/id6761034073)
 - [Nimlo on Google Play](https://play.google.com/store/apps/details?id=com.nimlo.android)
 - [Troutt on the App Store](https://apps.apple.com/us/app/troutt/id1503217318)
+- [Troutt on Google Play](https://play.google.com/store/apps/details?id=com.troutt.android)

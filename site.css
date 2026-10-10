@@ -815,18 +815,6 @@ html[data-sky="day"] .sky-glow {
     opacity: 0.7;
 }
 
-.store-btn--soon {
-    background: color-mix(in oklab, var(--card) 70%, var(--line));
-    color: var(--ink-soft);
-    border: 1px solid var(--line);
-    cursor: default;
-}
-
-.store-btn--soon:hover {
-    transform: none;
-    opacity: 1;
-}
-
 .contact-mail {
     font-size: 1.15rem;
     font-weight: 600;
