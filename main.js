@@ -288,6 +288,7 @@ const terminalLines = [
   "auth.session up",
   "build troutt",
   "build nimlo",
+  "build analog*",
   "notes indexed",
   "128 items",
   "plan generated",
@@ -426,9 +427,31 @@ function openProduct(button, { plain = false } = {}) {
 
 // The sketchbook is a physical object on the desk, so there is nothing to fly —
 // its sheet just fades up.
-document.querySelectorAll(".notebook").forEach((btn) => {
+document.querySelectorAll(".notebook, .radio").forEach((btn) => {
   btn.addEventListener("click", () => openProduct(btn, { plain: true }));
 });
+
+const analogTime = document.querySelector(".clock-time");
+
+function renderAnalogTime() {
+  if (!analogTime) return;
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const suffix = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+  analogTime.querySelector(".clock-hour").textContent = String(hours);
+  analogTime.querySelector(".clock-minute").textContent = minutes;
+  analogTime.querySelector(".clock-ampm").textContent = suffix;
+  analogTime.dateTime = now.toISOString();
+  analogTime.querySelector(".clock-colon").classList.toggle(
+    "is-dim",
+    !reduceMotion && now.getSeconds() % 2 === 1
+  );
+}
+
+renderAnalogTime();
+setInterval(renderAnalogTime, 1000);
 
 document.querySelectorAll(".hologram").forEach((btn) => {
   btn.addEventListener("click", () => {

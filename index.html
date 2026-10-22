@@ -7,13 +7,13 @@
     <meta name="description" content="Caelum Mercer — independent app producer. Thoughtful software for everyday life.">
     <meta property="og:title" content="Caelum Mercer">
     <meta property="og:description" content="Independent app producer. Step into the lab.">
-    <meta property="og:image" content="images/lab-night.jpg?v=28">
+    <meta property="og:image" content="images/lab-night.jpg?v=30">
     <meta name="theme-color" content="#0A0A0B">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="site.css?v=35">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Outfit:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site.css?v=46">
     <style>html,body{background:#07080c;color:#F5F3EE}</style>
 </head>
 <body>
@@ -33,8 +33,8 @@
 
     <main id="lab" class="lab">
         <div class="lab-scene" id="lab-scene">
-            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg?v=28" alt="Caelum Mercer in a hooded cloak and iridescent cyber mask, cyber glove on the desk, standing in his cabin lab at night" width="1920" height="1080">
-            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg?v=28" alt="Caelum Mercer in a hooded cloak and iridescent cyber mask, cyber glove on the desk, standing in his cabin lab during the day" width="1920" height="1080">
+            <img class="lab-photo lab-photo--night" src="images/lab-night.jpg?v=30" alt="Caelum Mercer in a hooded cloak and iridescent cyber mask, cyber glove on the desk, standing in his cabin lab at night" width="1920" height="1080">
+            <img class="lab-photo lab-photo--day" src="images/lab-day.jpg?v=30" alt="Caelum Mercer in a hooded cloak and iridescent cyber mask, cyber glove on the desk, standing in his cabin lab during the day" width="1920" height="1080">
 
             <div class="sky-glow" aria-hidden="true"></div>
 
@@ -56,6 +56,15 @@
                 <span class="hotspot-label">the thinking chair</span>
             </button>
 
+            <button class="radio" type="button" data-product="analog">
+                <time class="clock-time">
+                    <span class="clock-hour">12</span><span class="clock-colon">:</span><span class="clock-minute">00</span><span class="clock-ampm">AM</span>
+                </time>
+                <span class="hologram-caption">
+                    <span class="hologram-name">Analog*</span>
+                    <span class="hologram-meta">radio · coming soon</span>
+                </span>
+            </button>
             <button class="notebook" type="button" data-product="troutt">
                 <span class="notebook-glow" aria-hidden="true"></span>
                 <span class="hologram-caption">
@@ -107,7 +116,7 @@
         <div class="sheet-body">
             <p class="eyebrow">apps</p>
             <h2 id="apps-title" class="sheet-title">What's on the <em class="serif">desk</em></h2>
-            <p class="sheet-copy">Two focused tools. That’s the list.</p>
+            <p class="sheet-copy">Three focused tools. That’s the list.</p>
             <ul class="app-list">
                 <li class="app-listing">
                     <h3 class="app-listing-name">nimlo</h3>
@@ -124,6 +133,11 @@
                             <span><small>Get it on</small>Google Play</span>
                         </a>
                     </div>
+                </li>
+                <li class="app-listing">
+                    <h3 class="app-listing-name">Analog*</h3>
+                    <p class="app-listing-meta">radio · coming soon</p>
+                    <p class="sheet-lead serif">I love listening to holiday music but I do not like listening to them on streaming services.</p>
                 </li>
                 <li class="app-listing">
                     <h3 class="app-listing-name">troutt</h3>
@@ -164,6 +178,15 @@
     <footer class="site-footer">
         <p class="copyright">© 2026 Caelum Mercer. All rights reserved.</p>
     </footer>
+
+    <template id="product-analog">
+        <p class="eyebrow">radio · coming soon</p>
+        <div class="sheet-heading">
+            <h2 id="inspector-title" class="sheet-title">Analog*</h2>
+            <span class="product-status product-status--soon">on the way</span>
+        </div>
+        <p class="sheet-lead serif">I love listening to holiday music but I do not like listening to them on streaming services.</p>
+    </template>
 
     <template id="product-troutt">
         <p class="eyebrow">productivity · ios · android</p>
@@ -221,6 +244,6 @@
         </div>
     </template>
 
-    <script src="main.js?v=27" type="module"></script>
+    <script src="main.js?v=29" type="module"></script>
 </body>
 </html>

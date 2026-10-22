@@ -161,8 +161,8 @@ button {
     z-index: 0;
 }
 
-html[data-sky="night"] { --lab-image: url("images/lab-night.jpg?v=28"); }
-html[data-sky="day"] { --lab-image: url("images/lab-day.jpg?v=28"); }
+html[data-sky="night"] { --lab-image: url("images/lab-night.jpg?v=30"); }
+html[data-sky="day"] { --lab-image: url("images/lab-day.jpg?v=30"); }
 
 /* The artwork defines the stage: the scene box always stays 16:9 so overlays
    can sit in image coordinates. Width grows toward cover, but never so far
@@ -338,6 +338,64 @@ html[data-sky="day"] .sky-glow {
     top: 68%;
     width: 1.7%;
     aspect-ratio: 1;
+}
+
+/* The radio is painted into the shelf. This box is only the hit area,
+   and the time is the live digits sitting in its display. */
+.radio {
+    position: absolute;
+    left: 24.6%;
+    top: 54.91%;
+    width: 5.8%;
+    height: 3.7%;
+    z-index: 7;
+    background: none;
+}
+
+.clock-time {
+    position: absolute;
+    left: 25.6%;
+    top: 38%;
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Share Tech Mono", ui-monospace, monospace;
+    font-size: 0.72cqw;
+    line-height: 1;
+    color: #ff2a2a;
+    text-shadow: 0 0 0.12cqw rgba(255, 40, 40, 0.9);
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+}
+
+.clock-colon {
+    width: 0.22cqw;
+    text-align: center;
+}
+
+.clock-colon.is-dim {
+    opacity: 0.15;
+}
+
+.clock-ampm {
+    margin-left: 0.08cqw;
+    font-size: 0.28cqw;
+    letter-spacing: 0.02em;
+    color: #ff4d4d;
+}
+
+.radio .hologram-caption {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.35cqw);
+    width: max-content;
+    transform: translateX(-50%);
+}
+
+.radio .hologram-meta {
+    color: var(--accent-warm);
 }
 
 /* Traced to the projector puck painted on the desk, so the plate stands in the
@@ -735,6 +793,12 @@ html[data-sky="day"] .sky-glow {
     color: var(--live);
     border-color: color-mix(in oklab, var(--live) 35%, var(--line));
     background: color-mix(in oklab, var(--live) 8%, transparent);
+}
+
+.product-status--soon {
+    color: var(--accent-deep);
+    border-color: color-mix(in oklab, var(--accent-warm) 40%, var(--line));
+    background: color-mix(in oklab, var(--accent-warm) 10%, transparent);
 }
 
 .status-dot {
