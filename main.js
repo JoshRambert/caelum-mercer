@@ -417,12 +417,50 @@ function launchHologram(button) {
     .then(() => clone.remove());
 }
 
-function openProduct(button, { plain = false } = {}) {
+const APP_SLUGS = ["nimlo", "troutt", "analog"];
+const HOME_TITLE = document.title;
+
+function normalizedPath(pathname = location.pathname) {
+  const trimmed = pathname.replace(/\/+$/, "");
+  return trimmed || "/";
+}
+
+function appSlug(pathname = location.pathname) {
+  const slug = normalizedPath(pathname).slice(1);
+  return APP_SLUGS.includes(slug) ? slug : "";
+}
+
+function productButton(slug) {
+  return document.querySelector(`[data-product="${slug}"]`);
+}
+
+function productTitle(slug) {
+  if (!slug) return HOME_TITLE;
+  const name = slug === "analog" ? "Analog*" : slug;
+  return `${name} — Caelum Mercer`;
+}
+
+function setProductUrl(slug) {
+  const next = slug ? `/${slug}` : "/";
+  const state = slug ? { product: slug } : {};
+  if (normalizedPath() === next) {
+    document.title = productTitle(slug);
+    return;
+  }
+  // Closing drops the app path in place. Opening pushes, so Back reopens it.
+  if (slug) history.pushState(state, "", next);
+  else history.replaceState(state, "", next);
+  document.title = productTitle(slug);
+}
+
+function openProduct(button, { plain = false, updateUrl = true } = {}) {
   const template = document.getElementById(`product-${button.dataset.product}`);
   if (!template || !inspector) return;
   inspectorBody.replaceChildren(template.content.cloneNode(true));
   inspector.classList.toggle("sheet--plain", plain);
-  inspector.showModal();
+  if (updateUrl) setProductUrl(button.dataset.product);
+  else document.title = productTitle(button.dataset.product);
+  if (!inspector.open) inspector.showModal();
 }
 
 // The sketchbook is a physical object on the desk, so there is nothing to fly —
@@ -465,6 +503,48 @@ document.querySelectorAll(".hologram").forEach((btn) => {
     flight.then(() => btn.classList.remove("is-launching"));
   });
 });
+
+document.querySelectorAll(".app-listing-name a").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const button = productButton(appSlug(link.getAttribute("href") || ""));
+    if (!button) return;
+    event.preventDefault();
+    document.getElementById("apps")?.close();
+    openProduct(button, { plain: true });
+  });
+});
+
+let closingFromHistory = false;
+
+inspector?.addEventListener("close", () => {
+  if (closingFromHistory) return;
+  if (appSlug()) setProductUrl("");
+  else document.title = HOME_TITLE;
+});
+
+window.addEventListener("popstate", () => {
+  const slug = appSlug();
+  document.title = productTitle(slug);
+  if (slug) {
+    const button = productButton(slug);
+    if (button) openProduct(button, { plain: true, updateUrl: false });
+    return;
+  }
+  if (inspector?.open) {
+    closingFromHistory = true;
+    inspector.close();
+    closingFromHistory = false;
+  }
+});
+
+const initialSlug = appSlug();
+if (initialSlug && normalizedPath() !== `/${initialSlug}`) {
+  history.replaceState({ product: initialSlug }, "", `/${initialSlug}`);
+}
+if (initialSlug) {
+  const button = productButton(initialSlug);
+  if (button) openProduct(button, { plain: true, updateUrl: false });
+}
 
 // Matches the .sheet.is-closing animation in site.css.
 const SHEET_FADE_MS = 240;
